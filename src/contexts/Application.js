@@ -197,14 +197,15 @@ export function useLatestBlocks() {
         "id":1
       })
       .then((response) => {
-        console.log(response);
-        // const syncedBlock = response.result;
-        // const headBlock = response.result;
-        // if (syncedBlock && headBlock) {
-        //   updateLatestBlock(syncedBlock)
-        //   updateHeadBlock(headBlock)
-        // }
-      });
+        const syncedBlock = response.data.result;
+        const headBlock = response.data.result;
+        if (syncedBlock && headBlock) {
+          updateLatestBlock(syncedBlock)
+          updateHeadBlock(headBlock)
+        }
+      }).catch((e)=>{
+        console.log(e);
+      })
     }
     if (!latestBlock) {
       fetch()
