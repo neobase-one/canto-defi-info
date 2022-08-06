@@ -5,6 +5,7 @@ import utc from 'dayjs/plugin/utc'
 import getTokenList from '../utils/tokenLists'
 import { healthClient } from '../apollo/client'
 import { SUBGRAPH_HEALTH } from '../apollo/queries'
+import axios from 'axios';
 dayjs.extend(utc)
 
 const UPDATE = 'UPDATE'
@@ -174,21 +175,36 @@ export function useLatestBlocks() {
 
   useEffect(() => {
     async function fetch() {
-      healthClient
-        .query({
-          query: SUBGRAPH_HEALTH,
-        })
-        .then((res) => {
-          const syncedBlock = res.data.indexingStatusForCurrentVersion.chains[0].latestBlock.number
-          const headBlock = res.data.indexingStatusForCurrentVersion.chains[0].chainHeadBlock.number
-          if (syncedBlock && headBlock) {
-            updateLatestBlock(syncedBlock)
-            updateHeadBlock(headBlock)
-          }
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+      // healthClient
+      //   .query({
+      //     query: SUBGRAPH_HEALTH,
+      //   })
+      //   .then((res) => {
+      //     const syncedBlock = res.data.indexingStatusForCurrentVersion.chains[0].latestBlock.number
+      //     const headBlock = res.data.indexingStatusForCurrentVersion.chains[0].chainHeadBlock.number
+      //     if (syncedBlock && headBlock) {
+      //       updateLatestBlock(syncedBlock)
+      //       updateHeadBlock(headBlock)
+      //     }
+      //   })
+      //   .catch((e) => {
+      //     console.log(e)
+      //   })
+      axios.post(`http://147.182.255.149:8545/`, {
+        "jsonrpc":"2.0",
+        "method":"eth_blockNumber",
+        "params":[],
+        "id":1
+      })
+      .then((response) => {
+        console.log(response);
+        // const syncedBlock = response.result;
+        // const headBlock = response.result;
+        // if (syncedBlock && headBlock) {
+        //   updateLatestBlock(syncedBlock)
+        //   updateHeadBlock(headBlock)
+        // }
+      });
     }
     if (!latestBlock) {
       fetch()
