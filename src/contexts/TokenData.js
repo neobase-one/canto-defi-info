@@ -610,7 +610,7 @@ const getTokenChartData = async (tokenAddress) => {
       let result = await client.query({
         query: TOKEN_CHART,
         variables: {
-          id: tokenAddress,
+          tokenAddress: tokenAddress,
         },
         fetchPolicy: 'cache-first',
       })
