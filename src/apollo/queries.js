@@ -51,7 +51,7 @@ export const GET_BLOCK = gql`
     blocks(
       first: 1
       orderBy: timestamp
-      orderDirection: asc
+      orderDirection: ASC
       where: { timestamp_gt: $timestampFrom, timestamp_lt: $timestampTo }
     ) {
       id
@@ -239,7 +239,7 @@ export const USER_MINTS_BUNRS_PER_PAIR = gql`
 
 export const FIRST_SNAPSHOT = gql`
   query snapshots($user: Bytes!) {
-    liquidityPositionSnapshots(first: 1, where: { user: $user }, orderBy: timestamp, orderDirection: asc) {
+    liquidityPositionSnapshots(first: 1, where: { user: $user }, orderBy: timestamp, orderDirection: ASC) {
       timestamp
     }
   }
@@ -370,7 +370,7 @@ export const USER_TRANSACTIONS = gql`
 
 export const PAIR_CHART = gql`
   query pairDayDatas($pairAddress: Bytes!, $skip: Int!) {
-    pairDayDatas(first: 1000, skip: $skip, orderBy: date, orderDirection: asc, where: { pairAddress: $pairAddress }) {
+    pairDayDatas(first: 1000, skip: $skip, orderBy: date, orderDirection: ASC, where: { pairAddress: $pairAddress }) {
       id
       date
       dailyVolumeToken0
@@ -403,7 +403,7 @@ export const PAIR_DAY_DATA_BULK = (pairs, startTimestamp) => {
   pairsString += ']'
   const queryString = `
     query days {
-      pairDayDatas(first: 1000, orderBy: date, orderDirection: asc, where: { pairAddress_in: ${pairsString}, date_gt: ${startTimestamp} }) {
+      pairDayDatas(first: 1000, orderBy: date, orderDirection: ASC, where: { pairAddress_in: ${pairsString}, date_gt: ${startTimestamp} }) {
         id
         pairAddress
         date
@@ -419,8 +419,8 @@ export const PAIR_DAY_DATA_BULK = (pairs, startTimestamp) => {
 }
 
 export const GLOBAL_CHART = gql`
-  query stableswapDayDatas($startTime: Int!, $skip: Int!) {
-    stableswapDayDatas(first: 1000, skip: $skip, where: { date_gt: $startTime }, orderBy: date, orderDirection: asc) {
+  query uniswapDayDatas($startTime: Int!, $skip: Int!) {
+    uniswapDayDatas(first: 1000, skip: $skip, where: { date_gt: $startTime }, orderBy: date, orderDirection: ASC) {
       id
       date
       totalVolumeUSD
@@ -722,10 +722,8 @@ export const PAIRS_HISTORICAL_BULK = (block, pairs) => {
 }
 
 export const TOKEN_CHART = gql`
-  query tokenDayDatas($id: String!) {
-    tokenDayDatas(input: {
-      id: $id
-      }) {
+  query tokenDayDatas($tokenAddress: String!) {
+    tokenDayDatas(input: {orderBy: "date", orderDirection: ASC, tokenAddress: $tokenAddress}) {
       id
       date
       priceUSD
@@ -756,7 +754,7 @@ const TokenFields = `
 // used for getting top tokens by daily volume
 export const TOKEN_TOP_DAY_DATAS = gql`
   query tokenDayDatas($date: Int) {
-    tokenDayDatas(first: 50, orderBy: totalLiquidityUSD, orderDirection: desc, where: { date_gt: $date }) {
+    tokenDayDatas(input: {orderBy: "totalLiquidityUSD", orderDirection: desc, date_gt: $date}) {
       id
       date
     }
