@@ -64,9 +64,8 @@ export const GET_BLOCK = gql`
 export const GET_BLOCKS = (timestamps) => {
   let queryString = 'query blocks {'
   queryString += timestamps.map((timestamp) => {
-    return `t${timestamp}:blocks(first: 1, orderBy: timestamp, orderDirection: desc, where: { timestamp_gt: ${timestamp}, timestamp_lt: ${
-      timestamp + 600
-    } }) {
+    return `t${timestamp}:blocks(first: 1, orderBy: timestamp, orderDirection: desc, where: { timestamp_gt: ${timestamp}, timestamp_lt: ${timestamp + 600
+      } }) {
       number
     }`
   })
@@ -723,8 +722,10 @@ export const PAIRS_HISTORICAL_BULK = (block, pairs) => {
 }
 
 export const TOKEN_CHART = gql`
-  query tokenDayDatas($tokenAddr: String!, $skip: Int!) {
-    tokenDayDatas(first: 1000, skip: $skip, orderBy: date, orderDirection: asc, where: { token: $tokenAddr }) {
+  query tokenDayDatas($id: String!) {
+    tokenDayDatas(input: {
+      id: $id
+      }) {
       id
       date
       priceUSD
