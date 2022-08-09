@@ -47,7 +47,7 @@ export const V1_DATA_QUERY = gql`
 `
 
 export const GET_BLOCK = gql`
-  query getBlocks($timestampFrom: Float!, $timestampTo: Float!) {
+  query getBlocks($timestampFrom: Int!, $timestampTo: Int!) {
     getBlocks(
       input: { timestampFrom: $timestampFrom, timestampTo: $timestampTo }
     ) {
