@@ -236,7 +236,7 @@ export const USER_MINTS_BUNRS_PER_PAIR = gql`
 
 export const FIRST_SNAPSHOT = gql`
   query snapshots($user: Bytes!) {
-    liquidityPositionSnapshots(first: 1, where: { user: $user }, orderBy: timestamp, orderDirection: ASC) {
+    liquidityPositionSnapshots(first: 1, where: { user: $user }, orderBy: timestamp, orderDirection: "ASC") {
       timestamp
     }
   }
@@ -367,7 +367,7 @@ export const USER_TRANSACTIONS = gql`
 
 export const PAIR_CHART = gql`
   query pairDayDatas($pairAddress: Bytes!, $skip: Int!) {
-    pairDayDatas(first: 1000, skip: $skip, orderBy: date, orderDirection: ASC, where: { pairAddress: $pairAddress }) {
+    pairDayDatas(first: 1000, skip: $skip, orderBy: date, orderDirection: "ASC", where: { pairAddress: $pairAddress }) {
       id
       date
       dailyVolumeToken0
@@ -400,7 +400,7 @@ export const PAIR_DAY_DATA_BULK = (pairs, startTimestamp) => {
   pairsString += ']'
   const queryString = `
     query days {
-      pairDayDatas(first: 1000, orderBy: date, orderDirection: ASC, where: { pairAddress_in: ${pairsString}, date_gt: ${startTimestamp} }) {
+      pairDayDatas(first: 1000, orderBy: date, orderDirection: "ASC", where: { pairAddress_in: ${pairsString}, date_gt: ${startTimestamp} }) {
         id
         pairAddress
         date
@@ -417,7 +417,7 @@ export const PAIR_DAY_DATA_BULK = (pairs, startTimestamp) => {
 
 export const GLOBAL_CHART = gql`
   query uniswapDayDatas($startTime: Int!) {
-    uniswapDayDatas(input:{startTime: $startTime, orderBy: "date", orderDirection: ASC}) {
+    uniswapDayDatas(input:{startTime: $startTime, orderBy: "date", orderDirection: "ASC"}) {
       id
       date
       totalVolumeUSD
@@ -720,7 +720,7 @@ export const PAIRS_HISTORICAL_BULK = (block, pairs) => {
 
 export const TOKEN_CHART = gql`
   query tokenDayDatas($tokenAddress: String!) {
-    tokenDayDatas(input: {orderBy: "date", orderDirection: ASC, tokenAddress: $tokenAddress}) {
+    tokenDayDatas(input: {orderBy: "date", orderDirection: "ASC", tokenAddress: $tokenAddress}) {
       id
       date
       priceUSD
