@@ -433,7 +433,7 @@ export const GLOBAL_DATA = (block) => {
   const queryString = ` query uniswapFactories {
       uniswapFactories(
        ${block ? `block: { number: ${block}}` : ``} 
-       where: { id: "${FACTORY_ADDRESS}" }) {
+       input: { id: "${FACTORY_ADDRESS}" }) {
         id
         totalVolumeUSD
         totalVolumeETH
