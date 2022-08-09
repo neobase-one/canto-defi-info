@@ -47,8 +47,8 @@ export const V1_DATA_QUERY = gql`
 `
 
 export const GET_BLOCK = gql`
-  query blocks($timestampFrom: Int!, $timestampTo: Int!) {
-    blocks(
+  query getBlocks($timestampFrom: Float!, $timestampTo: Float!) {
+    getBlocks(
       input: { timestampFrom: $timestampFrom, timestampTo: $timestampTo }
     ) {
       id
@@ -59,7 +59,7 @@ export const GET_BLOCK = gql`
 `
 
 export const GET_BLOCKS = (timestamps) => {
-  let queryString = 'query blocks {'
+  let queryString = 'query getBlocks {'
   queryString += timestamps.map((timestamp) => {
     return `t${timestamp}:blocks(input: { timestampFrom: ${timestamp}, timestampFrom: ${timestamp + 600
       } }) {
@@ -71,7 +71,7 @@ export const GET_BLOCKS = (timestamps) => {
 }
 
 export const POSITIONS_BY_BLOCK = (account, blocks) => {
-  let queryString = 'query blocks {'
+  let queryString = 'query getBlocks {'
   queryString += blocks.map(
     (block) => `
       t${block.timestamp}:liquidityPositions(where: {user: "${account}"}, block: { number: ${block.number} }) { 
@@ -89,7 +89,7 @@ export const POSITIONS_BY_BLOCK = (account, blocks) => {
 }
 
 export const PRICES_BY_BLOCK = (tokenAddress, blocks) => {
-  let queryString = 'query blocks {'
+  let queryString = 'query getBlocks {'
   queryString += blocks.map(
     (block) => `
       t${block.timestamp}:token(id:"${tokenAddress}", block: { number: ${block.number} }) { 
@@ -173,15 +173,15 @@ export const SHARE_VALUE = (pairAddress, blocks) => {
 export const ETH_PRICE = (block) => {
   const queryString = block
     ? `
-    query bundles {
-      bundles(where: { id: ${BUNDLE_ID} } block: {number: ${block}}) {
+    query getBundles {
+      getBundles(input: { id: ${BUNDLE_ID} } block: {number: ${block}}) {
         id
         ethPrice
       }
     }
   `
-    : ` query bundles {
-      bundles(where: { id: ${BUNDLE_ID} }) {
+    : ` query getBundles {
+      getBundles(input: { id: ${BUNDLE_ID} }) {
         id
         ethPrice
       }
@@ -416,8 +416,8 @@ export const PAIR_DAY_DATA_BULK = (pairs, startTimestamp) => {
 }
 
 export const GLOBAL_CHART = gql`
-  query stableswapDayDatas($startTime: Int!) {
-    stableswapDayDatas(input:{startTime: $startTime, orderBy: "date", orderDirection: ASC}) {
+  query uniswapDayDatas($startTime: Int!) {
+    uniswapDayDatas(input:{startTime: $startTime, orderBy: "date", orderDirection: ASC}) {
       id
       date
       totalVolumeUSD
