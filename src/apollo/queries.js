@@ -492,7 +492,7 @@ export const GLOBAL_TXNS = gql`
         amount1
         amountUSD
       }
-      swaps(orderBy: timestamp, orderDirection: desc) {
+      swaps(orderBy: timestamp, orderDirection: DES) {
         transaction {
           id
           timestamp
@@ -520,7 +520,9 @@ export const GLOBAL_TXNS = gql`
 
 export const ALL_TOKENS = gql`
   query tokens($skip: Int!) {
-    tokens(first: 500, skip: $skip) {
+    tokens(input: {
+      first: 500, skip: $skip
+    }) {
       id
       name
       symbol
@@ -531,19 +533,19 @@ export const ALL_TOKENS = gql`
 
 export const TOKEN_SEARCH = gql`
   query tokens($value: String, $id: String) {
-    asSymbol: tokens(where: { symbol_contains: $value }, orderBy: totalLiquidity, orderDirection: desc) {
+    asSymbol: tokens(where: { symbol_contains: $value }, orderBy: "totalLiquidity", orderDirection: "DES") {
       id
       symbol
       name
       totalLiquidity
     }
-    asName: tokens(where: { name_contains: $value }, orderBy: totalLiquidity, orderDirection: desc) {
+    asName: tokens(where: { name_contains: $value }, orderBy: "totalLiquidity", orderDirection: "DES") {
       id
       symbol
       name
       totalLiquidity
     }
-    asAddress: tokens(where: { id: $id }, orderBy: totalLiquidity, orderDirection: desc) {
+    asAddress: tokens(where: { id: $id }, orderBy: "totalLiquidity", orderDirection: "DES") {
       id
       symbol
       name
@@ -598,7 +600,9 @@ export const PAIR_SEARCH = gql`
 
 export const ALL_PAIRS = gql`
   query getPairs($skip: Int!) {
-    getPairs(first: 500, skip: $skip, orderBy: trackedReserveETH, orderDirection: desc) {
+    getPairs(input: {
+      first: 500, skip: $skip, orderBy: "trackedReserveETH", orderDirection: "DES"
+    }) {
       id
       token0 {
         id
@@ -648,7 +652,9 @@ const PairFields = `
 
 export const PAIRS_CURRENT = gql`
   query getPairs {
-    getPairs(first: 200, orderBy: reserveUSD, orderDirection: desc) {
+    getPairs(input: {
+      first: 200, orderBy: "reserveUSD", orderDirection: "DES"
+    }) {
       id
     }
   }
@@ -692,7 +698,9 @@ export const MINING_POSITIONS = (account) => {
 export const PAIRS_BULK = gql`
   ${PairFields}
   query getPairs($allPairs: [Bytes]!) {
-    getPairs(first: 500, where: { id_in: $allPairs }, orderBy: trackedReserveETH, orderDirection: desc) {
+    getPairs(input: {
+      first: 500, where: { id_in: $allPairs }, orderBy: "trackedReserveETH", orderDirection: "DES"
+    }) {
       ...PairFields
     }
   }

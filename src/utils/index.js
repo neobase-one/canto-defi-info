@@ -10,6 +10,7 @@ import _Decimal from 'decimal.js-light'
 import toFormat from 'toformat'
 import { timeframeOptions } from '../constants'
 import Numeral from 'numeral'
+import axios from 'axios';
 
 // format libraries
 const Decimal = toFormat(_Decimal)
@@ -48,8 +49,7 @@ export function getPoolLink(token0Address, token1Address = null, remove = false)
     return (
       `https://app.uniswap.org/#/` +
       (remove ? `remove` : `add`) +
-      `/v2/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${
-        token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address
+      `/v2/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address
       }`
     )
   }
@@ -59,9 +59,8 @@ export function getSwapLink(token0Address, token1Address = null) {
   if (!token1Address) {
     return `https://app.uniswap.org/#/swap?inputCurrency=${token0Address}`
   } else {
-    return `https://app.uniswap.org/#/swap?inputCurrency=${
-      token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address
-    }&outputCurrency=${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address}`
+    return `https://app.uniswap.org/#/swap?inputCurrency=${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address
+      }&outputCurrency=${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address}`
   }
 }
 
@@ -172,7 +171,32 @@ export async function getBlocksFromTimestamps(timestamps, skipCount = 500) {
     return []
   }
 
-  let fetchedData = await splitQuery(GET_BLOCKS, blockClient, [], timestamps, skipCount)
+  let JSON_RPC_URL = "http://147.182.255.149:8545";
+  var data = JSON.stringify({ "jsonrpc": "2.0", 
+                              "method": "eth_getBlockByNumber", 
+                              "params": ["0x1", false], 
+                              "id": 1 });
+
+  var config = {
+    method: 'post',
+    url: JSON_RPC_URL,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: data
+  };
+
+  var fetchedData;
+
+  axios(config).then(function (response) {
+    console.log(JSON.stringify(response.data));
+    fetchedData = JSON.stringify(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+  //let fetchedData = await splitQuery(GET_BLOCKS, blockClient, [], timestamps, skipCount)
 
   let blocks = []
   if (fetchedData) {
