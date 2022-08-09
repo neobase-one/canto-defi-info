@@ -553,8 +553,8 @@ export const TOKEN_SEARCH = gql`
 `
 
 export const PAIR_SEARCH = gql`
-  query pairs($tokens: [Bytes]!, $id: String) {
-    as0: pairs(where: { token0_in: $tokens }) {
+  query getPairs($tokens: [Bytes]!, $id: String) {
+    as0: getPairs(where: { token0_in: $tokens }) {
       id
       token0 {
         id
@@ -567,7 +567,7 @@ export const PAIR_SEARCH = gql`
         name
       }
     }
-    as1: pairs(where: { token1_in: $tokens }) {
+    as1: getPairs(where: { token1_in: $tokens }) {
       id
       token0 {
         id
@@ -580,7 +580,7 @@ export const PAIR_SEARCH = gql`
         name
       }
     }
-    asAddress: pairs(where: { id: $id }) {
+    asAddress: getPairs(where: { id: $id }) {
       id
       token0 {
         id
@@ -597,8 +597,8 @@ export const PAIR_SEARCH = gql`
 `
 
 export const ALL_PAIRS = gql`
-  query pairs($skip: Int!) {
-    pairs(first: 500, skip: $skip, orderBy: trackedReserveETH, orderDirection: desc) {
+  query getPairs($skip: Int!) {
+    getPairs(first: 500, skip: $skip, orderBy: trackedReserveETH, orderDirection: desc) {
       id
       token0 {
         id
@@ -647,8 +647,8 @@ const PairFields = `
 `
 
 export const PAIRS_CURRENT = gql`
-  query pairs {
-    pairs(first: 200, orderBy: reserveUSD, orderDirection: desc) {
+  query getPairs {
+    getPairs(first: 200, orderBy: reserveUSD, orderDirection: desc) {
       id
     }
   }
@@ -657,8 +657,8 @@ export const PAIRS_CURRENT = gql`
 export const PAIR_DATA = (pairAddress, block) => {
   const queryString = `
     ${PairFields}
-    query pairs {
-      pairs(${block ? `block: {number: ${block}}` : ``} where: { id: "${pairAddress}"} ) {
+    query getPairs {
+      getPairs(${block ? `block: {number: ${block}}` : ``} where: { id: "${pairAddress}"} ) {
         ...PairFields
       }
     }`
@@ -691,8 +691,8 @@ export const MINING_POSITIONS = (account) => {
 
 export const PAIRS_BULK = gql`
   ${PairFields}
-  query pairs($allPairs: [Bytes]!) {
-    pairs(first: 500, where: { id_in: $allPairs }, orderBy: trackedReserveETH, orderDirection: desc) {
+  query getPairs($allPairs: [Bytes]!) {
+    getPairs(first: 500, where: { id_in: $allPairs }, orderBy: trackedReserveETH, orderDirection: desc) {
       ...PairFields
     }
   }
