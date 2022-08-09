@@ -400,7 +400,7 @@ export const PAIR_DAY_DATA_BULK = (pairs, startTimestamp) => {
   pairsString += ']'
   const queryString = `
     query days {
-      pairDayDatas(first: 1000, orderBy: date, orderDirection: "ASC", where: { pairAddress_in: ${pairsString}, date_gt: ${startTimestamp} }) {
+      pairDayDatas(first: 1000, orderBy: date, orderDirection: "ASC", where: { pairAddress_in: ${pairsString}, date: ${startTimestamp} }) {
         id
         pairAddress
         date
@@ -751,7 +751,7 @@ const TokenFields = `
 // used for getting top tokens by daily volume
 export const TOKEN_TOP_DAY_DATAS = gql`
   query tokenDayDatas($date: Int) {
-    tokenDayDatas(input: {orderBy: "totalLiquidityUSD", orderDirection: desc, date_gt: $date}) {
+    tokenDayDatas(input: {orderBy: "totalLiquidityUSD", orderDirection: "DES", date: $date}) {
       id
       date
     }
