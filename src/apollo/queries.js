@@ -61,7 +61,7 @@ export const GET_BLOCK = gql`
 export const GET_BLOCKS = (timestamps) => {
   let queryString = 'query getBlocks {'
   queryString += timestamps.map((timestamp) => {
-    return `t${timestamp}:getBlocks(input: { timestampFrom: ${timestamp}, timestampFrom: ${timestamp + 600
+    return `t${timestamp}:getBlocks(input: { timestampFrom: ${timestamp}, timestampTo: ${timestamp + 600
       } }) {
       number
     }`
