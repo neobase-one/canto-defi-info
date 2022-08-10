@@ -658,7 +658,7 @@ export const PAIR_DATA = (pairAddress, block) => {
   const queryString = `
     ${PairFields}
     query getPairs {
-      getPairs(${block ? `block: {number: ${block}}` : ``} id_in: "${pairAddress}" ) {
+      getPairs(input: {${block ? `block: ${block}` : ``} id_in: "${pairAddress}"} ) {
         ...PairFields
       }
     }`

@@ -231,7 +231,7 @@ async function getBulkPairData(pairList, ethPrice) {
             query: PAIR_DATA(pair.id, b1),
             fetchPolicy: 'cache-first',
           })
-          oneDayHistory = newData.data.pairs[0]
+          oneDayHistory = newData?.data?.pairs?.[0]
         }
         let twoDayHistory = twoDayData?.[pair.id]
         if (!twoDayHistory) {
@@ -239,7 +239,7 @@ async function getBulkPairData(pairList, ethPrice) {
             query: PAIR_DATA(pair.id, b2),
             fetchPolicy: 'cache-first',
           })
-          twoDayHistory = newData.data.pairs[0]
+          twoDayHistory = newData?.data?.pairs?.[0]
         }
         let oneWeekHistory = oneWeekData?.[pair.id]
         if (!oneWeekHistory) {
@@ -247,7 +247,7 @@ async function getBulkPairData(pairList, ethPrice) {
             query: PAIR_DATA(pair.id, bWeek),
             fetchPolicy: 'cache-first',
           })
-          oneWeekHistory = newData.data.pairs[0]
+          oneWeekHistory = newData?.data?.pairs?.[0]
         }
         data = parseData(data, oneDayHistory, twoDayHistory, oneWeekHistory, ethPrice, b1)
         return data
