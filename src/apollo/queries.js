@@ -25,7 +25,7 @@ export const V1_DATA_QUERY = gql`
       totalLiquidityUSD
       txCount
     }
-    oneDay: uniswapDayDatas(where: { timestamp_lt: $date }, first: 1, orderBy: timestamp, orderDirection: des) {
+    oneDay: uniswapDayDatas(where: { timestamp_lt: $date }, first: 1, orderBy: timestamp, orderDirection: "DES") {
       totalVolumeUSD
       totalLiquidityUSD
       txCount
