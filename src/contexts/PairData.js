@@ -208,21 +208,21 @@ async function getBulkPairData(pairList, ethPrice) {
       })
     )
 
-    let oneDayData = oneDayResult?.data?.pairs.reduce((obj, cur, i) => {
+    let oneDayData = oneDayResult?.data?.pairs?.reduce((obj, cur, i) => {
       return { ...obj, [cur.id]: cur }
     }, {})
 
-    let twoDayData = twoDayResult?.data?.pairs.reduce((obj, cur, i) => {
+    let twoDayData = twoDayResult?.data?.pairs?.reduce((obj, cur, i) => {
       return { ...obj, [cur.id]: cur }
     }, {})
 
-    let oneWeekData = oneWeekResult?.data?.pairs.reduce((obj, cur, i) => {
+    let oneWeekData = oneWeekResult?.data?.pairs?.reduce((obj, cur, i) => {
       return { ...obj, [cur.id]: cur }
     }, {})
 
-    let pairData = await Promise.all(
+    let pairData = await Promise?.all(
       current &&
-      current.data.pairs.map(async (pair) => {
+      current?.data?.pairs?.map(async (pair) => {
         let data = pair
         let oneDayHistory = oneDayData?.[pair.id]
         if (!oneDayHistory) {
