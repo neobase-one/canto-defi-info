@@ -485,15 +485,13 @@ export function Updater() {
   useEffect(() => {
     async function getData() {
       // get top pairs by reserves
-      let {
-        data: { pairs },
-      } = await client.query({
+      let { data } = await client.query({
         query: PAIRS_CURRENT,
         fetchPolicy: 'cache-first',
       })
 
       // format as array of addresses
-      const formattedPairs = pairs?.map((pair) => {
+      const formattedPairs = data?.getPairs?.map((pair) => {
         return pair.id
       })
 
