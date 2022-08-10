@@ -517,8 +517,8 @@ async function getAllPairsOnUniswap() {
         fetchPolicy: 'cache-first',
       })
       skipCount = skipCount + PAIRS_TO_FETCH
-      pairs = pairs.concat(result?.data?.pairs)
-      if (result?.data?.pairs?.length < PAIRS_TO_FETCH || pairs.length > PAIRS_TO_FETCH) {
+      pairs = pairs.concat(result?.data?.getPairs)
+      if (result?.data?.getPairs?.length < PAIRS_TO_FETCH || pairs.length > PAIRS_TO_FETCH) {
         allFound = true
       }
     }
