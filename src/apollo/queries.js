@@ -555,8 +555,8 @@ export const TOKEN_SEARCH = gql`
 `
 
 export const PAIR_SEARCH = gql`
-  query getPairs($tokens: [Bytes]!, $id: String) {
-    as0: getPairs(where: { token0_in: $tokens }) {
+  query getPairs($tokens: [String!], $id: String) {
+    as0: getPairs(input: { id: $id, id_in: $tokens }) {
       id
       token0 {
         id
@@ -569,7 +569,7 @@ export const PAIR_SEARCH = gql`
         name
       }
     }
-    as1: getPairs(where: { token1_in: $tokens }) {
+    as1: getPairs(input: { id: $id, id_in: $tokens }) {
       id
       token0 {
         id
@@ -582,7 +582,7 @@ export const PAIR_SEARCH = gql`
         name
       }
     }
-    asAddress: getPairs(where: { id: $id }) {
+    asAddress: getPairs(input: { id: $id, id_in: $tokens }) {
       id
       token0 {
         id
@@ -664,7 +664,7 @@ export const PAIR_DATA = (pairAddress, block) => {
   const queryString = `
     ${PairFields}
     query getPairs {
-      getPairs(${block ? `block: {number: ${block}}` : ``} where: { id: "${pairAddress}"} ) {
+      getPairs(${block ? `block: {number: ${block}}` : ``} id_in: "${pairAddress}" ) {
         ...PairFields
       }
     }`
@@ -697,9 +697,9 @@ export const MINING_POSITIONS = (account) => {
 
 export const PAIRS_BULK = gql`
   ${PairFields}
-  query getPairs($allPairs: [Bytes]!) {
+  query getPairs($allPairs: [String!]) {
     getPairs(input: {
-      first: 500, where: { id_in: $allPairs }, orderBy: "trackedReserveETH", orderDirection: "DES"
+      first: 500, id_in: $allPairs, orderBy: "trackedReserveETH", orderDirection: "DES"
     }) {
       ...PairFields
     }
@@ -714,7 +714,9 @@ export const PAIRS_HISTORICAL_BULK = (block, pairs) => {
   pairsString += ']'
   let queryString = `
   query pairs {
-    pairs(first: 200, where: {id_in: ${pairsString}}, block: {number: ${block}}, orderBy: trackedReserveETH, orderDirection: desc) {
+    getPairs(input: {
+      first: 200, id_in: ${pairsString}, block: {number: ${block}}, orderBy: "trackedReserveETH", orderDirection: "DES"
+    }) {
       id
       reserveUSD
       trackedReserveETH
@@ -768,8 +770,8 @@ export const TOKEN_TOP_DAY_DATAS = gql`
 
 export const TOKENS_BULK = gql`
   ${TokenFields}
-  query tokens($tokenAddresses: [Bytes]!) {
-    pairs(where: { id_in: $tokenAddresses }) {
+  query tokens($tokenAddresses: [String]!) {
+    getPairs(input: { id_in: $tokenAddresses }) {
       ...TokenFields
     }
   }
@@ -782,7 +784,8 @@ export const TOKENS_HISTORICAL_BULK = (tokens, block) => {
   tokenString += ']'
   let queryString = `
   query tokens {
-    tokens(first: 50, where: {id_in: ${tokenString}}, ${block ? 'block: {number: ' + block + '}' : ''}  ) {
+    tokens(input: {
+      first: 50, id_in: ${tokenString}}, ${block ? 'block: {number: ' + block + '}' : ''}  ) {
       id
       name
       symbol
@@ -801,7 +804,9 @@ export const TOKENS_HISTORICAL_BULK = (tokens, block) => {
 export const TOKENS_CURRENT = gql`
   ${TokenFields}
   query tokens {
-    tokens(first: 200, orderBy: tradeVolumeUSD, orderDirection: desc) {
+    tokens(input: {
+      first: 200, orderBy: "tradeVolumeUSD", orderDirection: "DES"
+    }) {
       ...TokenFields
     }
   }
@@ -811,7 +816,7 @@ export const TOKENS_DYNAMIC = (block) => {
   const queryString = `
     ${TokenFields}
     query tokens {
-      tokens(block: {number: ${block}} first: 200, orderBy: tradeVolumeUSD, orderDirection: desc) {
+      tokens(block: {number: ${block}} first: 200, orderBy: "tradeVolumeUSD", orderDirection: "DES") {
         ...TokenFields
       }
     }
@@ -823,13 +828,19 @@ export const TOKEN_DATA = (tokenAddress, block) => {
   const queryString = `
     ${TokenFields}
     query tokens {
-      tokens(${block ? `block : {number: ${block}}` : ``} where: {id:"${tokenAddress}"}) {
+      tokens(input: {
+        ${block ? `block : {number: ${block}}` : ``} id_in:"${tokenAddress}"}
+      }) {
         ...TokenFields
       }
-      pairs0: pairs(where: {token0: "${tokenAddress}"}, first: 50, orderBy: reserveUSD, orderDirection: desc){
+      pairs0: getPairs(input: {
+        id_in: "${tokenAddress}", first: 50, orderBy: "reserveUSD", orderDirection: "DES"
+      }){
         id
       }
-      pairs1: pairs(where: {token1: "${tokenAddress}"}, first: 50, orderBy: reserveUSD, orderDirection: desc){
+      pairs1: getPairs(input: {
+        id_in: "${tokenAddress}"}, first: 50, orderBy: "reserveUSD", orderDirection: "DES"
+      }){
         id
       }
     }
@@ -839,7 +850,7 @@ export const TOKEN_DATA = (tokenAddress, block) => {
 
 export const FILTERED_TRANSACTIONS = gql`
   query ($allPairs: [Bytes]!) {
-    mints(first: 20, where: { pair_in: $allPairs }, orderBy: timestamp, orderDirection: desc) {
+    mints(first: 20, where: { pair_in: $allPairs }, orderBy: "timestamp", orderDirection: "DES") {
       transaction {
         id
         timestamp
@@ -860,7 +871,7 @@ export const FILTERED_TRANSACTIONS = gql`
       amount1
       amountUSD
     }
-    burns(first: 20, where: { pair_in: $allPairs }, orderBy: timestamp, orderDirection: desc) {
+    burns(first: 20, where: { pair_in: $allPairs }, orderBy: "timestamp", orderDirection: "DES") {
       transaction {
         id
         timestamp

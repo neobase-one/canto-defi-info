@@ -172,10 +172,12 @@ export async function getBlocksFromTimestamps(timestamps, skipCount = 500) {
   }
 
   let JSON_RPC_URL = "http://147.182.255.149:8545";
-  var data = JSON.stringify({ "jsonrpc": "2.0", 
-                              "method": "eth_getBlockByNumber", 
-                              "params": ["0x1", false], 
-                              "id": 1 });
+  var data = JSON.stringify({
+    "jsonrpc": "2.0",
+    "method": "eth_getBlockByNumber",
+    "params": ["0x1", false],
+    "id": 1
+  });
 
   var config = {
     method: 'post',
@@ -192,9 +194,9 @@ export async function getBlocksFromTimestamps(timestamps, skipCount = 500) {
     console.log(JSON.stringify(response.data));
     fetchedData = JSON.stringify(response.data);
   })
-  .catch(function (error) {
-    console.log(error);
-  });
+    .catch(function (error) {
+      console.log(error);
+    });
 
   //let fetchedData = await splitQuery(GET_BLOCKS, blockClient, [], timestamps, skipCount)
 

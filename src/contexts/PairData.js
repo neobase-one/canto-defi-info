@@ -184,6 +184,8 @@ export default function Provider({ children }) {
 
 async function getBulkPairData(pairList, ethPrice) {
   const [t1, t2, tWeek] = getTimestampsForChanges()
+  var t = await getBlocksFromTimestamps([t1, t2, tWeek]);
+  console.log(t);
   let [{ number: b1 }, { number: b2 }, { number: bWeek }] = await getBlocksFromTimestamps([t1, t2, tWeek])
 
   try {
@@ -490,7 +492,7 @@ export function Updater() {
       })
 
       // format as array of addresses
-      const formattedPairs = pairs.map((pair) => {
+      const formattedPairs = pairs?.map((pair) => {
         return pair.id
       })
 
