@@ -37,12 +37,11 @@ const LocalLoader = ({ fill }) => {
   const [darkMode] = useDarkModeManager()
 
   return (
-    <></>
-    // {/* <Wrapper fill={fill}>
-    //   <AnimatedImg>
-    //     {/* <img src={require(darkMode ? '../../assets/logo_white.svg' : '../../assets/logo.svg')} alt="loading-icon" /> */}
-    //   </AnimatedImg>
-    // </Wrapper> */}
+    <Wrapper fill={fill}>
+      <AnimatedImg>
+        <img src={require(darkMode ? '../../assets/logo_white.svg' : '../../assets/logo.svg')} alt="loading-icon" />
+      </AnimatedImg>
+    </Wrapper>
   )
 }
 
