@@ -779,7 +779,7 @@ export const TOKENS_HISTORICAL_BULK = (tokens, block) => {
   let queryString = `
   query tokens {
     tokens(input: {
-      first: 50, id_in: ${tokenString}}, ${block ? 'block: {number: ' + block + '}' : ''}  ) {
+      first: 50, id_in: ${tokenString}}, ${block ? 'block: ' + block : ''}  ) {
       id
       name
       symbol
@@ -810,7 +810,7 @@ export const TOKENS_DYNAMIC = (block) => {
   const queryString = `
     ${TokenFields}
     query tokens {
-      tokens(block: {number: ${block}} first: 200, orderBy: "tradeVolumeUSD", orderDirection: "DES") {
+      tokens(block: ${block}, first: 200, orderBy: "tradeVolumeUSD", orderDirection: "DES") {
         ...TokenFields
       }
     }
@@ -823,7 +823,7 @@ export const TOKEN_DATA = (tokenAddress, block) => {
     ${TokenFields}
     query tokens {
       tokens(input: {
-        ${block ? `block : {number: ${block}}` : ``} id_in:"${tokenAddress}"}
+        ${block ? `block : ${block}, ` : ``} id_in:"${tokenAddress}"}
       }) {
         ...TokenFields
       }
