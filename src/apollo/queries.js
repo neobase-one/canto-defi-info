@@ -20,17 +20,17 @@ export const SUBGRAPH_HEALTH = gql`
 
 export const V1_DATA_QUERY = gql`
   query uniswap($date: Int!, $date2: Int!) {
-    current: uniswap(id: "1") {
+    current: uniswapFactories(id: "1") {
       totalVolumeUSD
       totalLiquidityUSD
       txCount
     }
-    oneDay: uniswapHistoricalDatas(where: { timestamp_lt: $date }, first: 1, orderBy: timestamp, orderDirection: desc) {
+    oneDay: uniswapDayDatas(where: { timestamp_lt: $date }, first: 1, orderBy: timestamp, orderDirection: des) {
       totalVolumeUSD
       totalLiquidityUSD
       txCount
     }
-    twoDay: uniswapHistoricalDatas(
+    twoDay: uniswapDayDatas(
       where: { timestamp_lt: $date2 }
       first: 1
       orderBy: timestamp
@@ -40,7 +40,7 @@ export const V1_DATA_QUERY = gql`
       totalLiquidityUSD
       txCount
     }
-    exchanges(first: 200, orderBy: ethBalance, orderDirection: desc) {
+    exchanges(first: 200, orderBy: ethBalance, orderDirection: des) {
       ethBalance
     }
   }
