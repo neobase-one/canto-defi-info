@@ -427,8 +427,7 @@ export const GLOBAL_CHART = gql`
 export const GLOBAL_DATA = (block) => {
   const queryString = ` query uniswapFactories {
       uniswapFactories(
-       ${block ? `block: { number: ${block}}` : ``} 
-       input: { id: "${FACTORY_ADDRESS}" }) {
+       input: { id: "${FACTORY_ADDRESS}" ${block ? `, block: ${block}` : ``} }) {
         id
         totalVolumeUSD
         totalVolumeETH
