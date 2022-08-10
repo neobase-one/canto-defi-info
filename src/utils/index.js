@@ -106,7 +106,7 @@ export const toWeeklyDate = (date) => {
 }
 
 export function getTimestampsForChanges() {
-  const utcCurrentTime = dayjs()
+  const utcCurrentTime = dayjs().subtract(7, 'day')
   const t1 = utcCurrentTime.subtract(1, 'day').startOf('minute').unix()
   const t2 = utcCurrentTime.subtract(2, 'day').startOf('minute').unix()
   const tWeek = utcCurrentTime.subtract(1, 'week').startOf('minute').unix()
@@ -141,12 +141,6 @@ export async function splitQuery(query, localClient, vars, list, skipCount = 100
 
   return fetchedData
 }
-
-/**
- * @notice Fetches first block after a given timestamp
- * @dev Query speed is optimized by limiting to a 600-second period
- * @param {Int} timestamp in seconds
- */
 export async function getBlockFromTimestamp(timestamp) {
   let result = await blockClient.query({
     query: GET_BLOCK,
@@ -171,34 +165,7 @@ export async function getBlocksFromTimestamps(timestamps, skipCount = 500) {
     return []
   }
 
-  let JSON_RPC_URL = "http://147.182.255.149:8545";
-  var data = JSON.stringify({
-    "jsonrpc": "2.0",
-    "method": "eth_getBlockByNumber",
-    "params": ["0x1", false],
-    "id": 1
-  });
-
-  var config = {
-    method: 'post',
-    url: JSON_RPC_URL,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: data
-  };
-
-  var fetchedData;
-
-  axios(config).then(function (response) {
-    console.log(JSON.stringify(response.data));
-    fetchedData = JSON.stringify(response.data);
-  })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-  //let fetchedData = await splitQuery(GET_BLOCKS, blockClient, [], timestamps, skipCount)
+  let fetchedData = await splitQuery(GET_BLOCKS, blockClient, [], timestamps, skipCount)
 
   let blocks = []
   if (fetchedData) {
@@ -211,6 +178,7 @@ export async function getBlocksFromTimestamps(timestamps, skipCount = 500) {
       }
     }
   }
+  console.log("blocks", blocks)
   return blocks
 }
 
