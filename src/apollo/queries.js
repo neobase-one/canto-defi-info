@@ -709,7 +709,7 @@ export const PAIRS_HISTORICAL_BULK = (block, pairs) => {
   let queryString = `
   query pairs {
     getPairs(input: {
-      first: 200, id_in: ${pairsString}, block: {number: ${block}}, orderBy: "trackedReserveETH", orderDirection: "DES"
+      first: 200, id_in: ${pairsString}, block: ${block}, orderBy: "trackedReserveETH", orderDirection: "DES"
     }) {
       id
       reserveUSD
