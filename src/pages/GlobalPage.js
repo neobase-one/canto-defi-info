@@ -50,7 +50,7 @@ function GlobalPage() {
   // get data for lists and totals
   const allPairs = useAllPairData()
   const allTokens = useAllTokenData()
-  const transactions = useGlobalTransactions()
+  // const transactions = useGlobalTransactions()
   const { totalLiquidityUSD, oneDayVolumeUSD, volumeChangeUSD, liquidityChangeUSD } = useGlobalData()
 
   // breakpoints
@@ -160,14 +160,14 @@ function GlobalPage() {
           <Panel style={{ marginTop: '6px', padding: '1.125rem 0 ' }}>
             <PairList pairs={allPairs} useTracked={useTracked} />
           </Panel>
-          <span>
+          {/* <span>
             <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '2rem' }}>
               Transactions
             </TYPE.main>
           </span>
           <Panel style={{ margin: '1rem 0' }}>
             <TxnList transactions={transactions} />
-          </Panel>
+          </Panel> */}
         </div>
       </ContentWrapper>
     </PageWrapper>
