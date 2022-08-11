@@ -64,7 +64,7 @@ export default function GlobalStats() {
           )}
           {!below1295 && (
             <TYPE.main mr={'1rem'}>
-              Fees (24H): <Medium>{oneDayFees}</Medium>&nbsp;
+              Fees (24H): <Medium>{oneDayFees || 0}</Medium>&nbsp;
             </TYPE.main>
           )}
         </RowFixed>
