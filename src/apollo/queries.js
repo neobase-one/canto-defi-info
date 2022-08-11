@@ -445,9 +445,9 @@ export const GLOBAL_TXNS = gql`
   query transactions {
     transactions(input:{first: 100, orderBy: "timestamp", orderDirection: "DES"}) {
       mints {
+        timestamp
         transaction {
           id
-          timestamp
         }
         pair {
           token0 {
@@ -466,6 +466,7 @@ export const GLOBAL_TXNS = gql`
         amountUSD
       }
       burns {
+        timestamp
         transaction {
           id
           timestamp
@@ -487,6 +488,7 @@ export const GLOBAL_TXNS = gql`
         amountUSD
       }
       swaps {
+        timestamp
         transaction {
           id
           timestamp
