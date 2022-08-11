@@ -247,6 +247,7 @@ async function getGlobalData(ethPrice, oldEthPrice) {
       query: GLOBAL_DATA(),
       fetchPolicy: 'cache-first',
     })
+    console.log(data)
     data = result?.data?.uniswapFactories?.[0]
 
     // fetch the historical data
@@ -254,24 +255,28 @@ async function getGlobalData(ethPrice, oldEthPrice) {
       query: GLOBAL_DATA(oneDayBlock?.number),
       fetchPolicy: 'cache-first',
     })
+    console.log(oneDayResult)
     oneDayData = oneDayResult?.data?.uniswapFactories?.[0]
 
     let twoDayResult = await client.query({
       query: GLOBAL_DATA(twoDayBlock?.number),
       fetchPolicy: 'cache-first',
     })
+    console.log(twoDayResult)
     twoDayData = twoDayResult?.data?.uniswapFactories?.[0]
 
     let oneWeekResult = await client.query({
       query: GLOBAL_DATA(oneWeekBlock?.number),
       fetchPolicy: 'cache-first',
     })
+    console.log(oneWeekResult)
     const oneWeekData = oneWeekResult?.data?.uniswapFactories?.[0]
 
     let twoWeekResult = await client.query({
       query: GLOBAL_DATA(twoWeekBlock?.number),
       fetchPolicy: 'cache-first',
     })
+    console.log(twoWeekResult)
     const twoWeekData = twoWeekResult?.data?.uniswapFactories?.[0]
 
     if (data && oneDayData && twoDayData && twoWeekData) {
