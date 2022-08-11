@@ -247,32 +247,32 @@ async function getGlobalData(ethPrice, oldEthPrice) {
       query: GLOBAL_DATA(),
       fetchPolicy: 'cache-first',
     })
-    data = result.data.uniswapFactories[0]
+    data = result?.data?.uniswapFactories?.[0]
 
     // fetch the historical data
     let oneDayResult = await client.query({
       query: GLOBAL_DATA(oneDayBlock?.number),
       fetchPolicy: 'cache-first',
     })
-    oneDayData = oneDayResult.data.uniswapFactories[0]
+    oneDayData = oneDayResult?.data?.uniswapFactories?.[0]
 
     let twoDayResult = await client.query({
       query: GLOBAL_DATA(twoDayBlock?.number),
       fetchPolicy: 'cache-first',
     })
-    twoDayData = twoDayResult.data.uniswapFactories[0]
+    twoDayData = twoDayResult?.data?.uniswapFactories?.[0]
 
     let oneWeekResult = await client.query({
       query: GLOBAL_DATA(oneWeekBlock?.number),
       fetchPolicy: 'cache-first',
     })
-    const oneWeekData = oneWeekResult.data.uniswapFactories[0]
+    const oneWeekData = oneWeekResult?.data?.uniswapFactories?.[0]
 
     let twoWeekResult = await client.query({
       query: GLOBAL_DATA(twoWeekBlock?.number),
       fetchPolicy: 'cache-first',
     })
-    const twoWeekData = twoWeekResult.data.uniswapFactories[0]
+    const twoWeekData = twoWeekResult?.data?.uniswapFactories?.[0]
 
     if (data && oneDayData && twoDayData && twoWeekData) {
       let [oneDayVolumeUSD, volumeChangeUSD] = get2DayPercentChange(
@@ -313,6 +313,7 @@ async function getGlobalData(ethPrice, oldEthPrice) {
     console.log(e)
   }
 
+  console.log(data)
   return data
 }
 
@@ -561,6 +562,7 @@ async function getAllTokensOnUniswap() {
  */
 export function useGlobalData() {
   const [state, { update, updateAllPairsInUniswap, updateAllTokensInUniswap }] = useGlobalDataContext()
+  console.log(state)
   const [ethPrice, oldEthPrice] = useEthPrice()
 
   const data = state?.globalData
@@ -578,6 +580,10 @@ export function useGlobalData() {
 
       let allTokens = await getAllTokensOnUniswap()
       updateAllTokensInUniswap(allTokens)
+
+      console.log(globalData)
+      console.log(allPairs)
+      console.log(allTokens)
     }
     if (!data && ethPrice && oldEthPrice) {
       fetchData()
