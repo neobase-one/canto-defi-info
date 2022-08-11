@@ -247,32 +247,37 @@ async function getGlobalData(ethPrice, oldEthPrice) {
       query: GLOBAL_DATA(),
       fetchPolicy: 'cache-first',
     })
-    data = result.data.uniswapFactories[0]
+    console.log(data)
+    data = result?.data?.uniswapFactories?.[0]
 
     // fetch the historical data
     let oneDayResult = await client.query({
       query: GLOBAL_DATA(oneDayBlock?.number),
       fetchPolicy: 'cache-first',
     })
-    oneDayData = oneDayResult.data.uniswapFactories[0]
+    console.log(oneDayResult)
+    oneDayData = oneDayResult?.data?.uniswapFactories?.[0]
 
     let twoDayResult = await client.query({
       query: GLOBAL_DATA(twoDayBlock?.number),
       fetchPolicy: 'cache-first',
     })
-    twoDayData = twoDayResult.data.uniswapFactories[0]
+    console.log(twoDayResult)
+    twoDayData = twoDayResult?.data?.uniswapFactories?.[0]
 
     let oneWeekResult = await client.query({
       query: GLOBAL_DATA(oneWeekBlock?.number),
       fetchPolicy: 'cache-first',
     })
-    const oneWeekData = oneWeekResult.data.uniswapFactories[0]
+    console.log(oneWeekResult)
+    const oneWeekData = oneWeekResult?.data?.uniswapFactories?.[0]
 
     let twoWeekResult = await client.query({
       query: GLOBAL_DATA(twoWeekBlock?.number),
       fetchPolicy: 'cache-first',
     })
-    const twoWeekData = twoWeekResult.data.uniswapFactories[0]
+    console.log(twoWeekResult)
+    const twoWeekData = twoWeekResult?.data?.uniswapFactories?.[0]
 
     if (data && oneDayData && twoDayData && twoWeekData) {
       let [oneDayVolumeUSD, volumeChangeUSD] = get2DayPercentChange(
@@ -313,6 +318,7 @@ async function getGlobalData(ethPrice, oldEthPrice) {
     console.log(e)
   }
 
+  console.log(data)
   return data
 }
 
@@ -485,8 +491,8 @@ const getEthPrice = async () => {
       query: ETH_PRICE(oneDayBlock),
       fetchPolicy: 'cache-first',
     })
-    const currentPrice = result?.data?.bundles[0]?.ethPrice
-    const oneDayBackPrice = resultOneDay?.data?.bundles[0]?.ethPrice
+    const currentPrice = result?.data?.getBundles[0]?.ethPrice
+    const oneDayBackPrice = resultOneDay?.data?.getBundles[0]?.ethPrice
     priceChangeETH = getPercentChange(currentPrice, oneDayBackPrice)
     ethPrice = currentPrice
     ethPriceOneDay = oneDayBackPrice
@@ -517,8 +523,8 @@ async function getAllPairsOnUniswap() {
         fetchPolicy: 'cache-first',
       })
       skipCount = skipCount + PAIRS_TO_FETCH
-      pairs = pairs.concat(result?.data?.pairs)
-      if (result?.data?.pairs.length < PAIRS_TO_FETCH || pairs.length > PAIRS_TO_FETCH) {
+      pairs = pairs.concat(result?.data?.getPairs)
+      if (result?.data?.getPairs?.length < PAIRS_TO_FETCH || pairs.length > PAIRS_TO_FETCH) {
         allFound = true
       }
     }
@@ -561,6 +567,7 @@ async function getAllTokensOnUniswap() {
  */
 export function useGlobalData() {
   const [state, { update, updateAllPairsInUniswap, updateAllTokensInUniswap }] = useGlobalDataContext()
+  console.log(state)
   const [ethPrice, oldEthPrice] = useEthPrice()
 
   const data = state?.globalData
@@ -578,6 +585,10 @@ export function useGlobalData() {
 
       let allTokens = await getAllTokensOnUniswap()
       updateAllTokensInUniswap(allTokens)
+
+      console.log(globalData)
+      console.log(allPairs)
+      console.log(allTokens)
     }
     if (!data && ethPrice && oldEthPrice) {
       fetchData()
@@ -708,7 +719,7 @@ export function useTopLps() {
             if (results) {
               return results.liquidityPositions
             }
-          } catch (e) {}
+          } catch (e) { }
         })
       )
 

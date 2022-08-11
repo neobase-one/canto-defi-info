@@ -5,6 +5,7 @@ import utc from 'dayjs/plugin/utc'
 import getTokenList from '../utils/tokenLists'
 import { healthClient } from '../apollo/client'
 import { SUBGRAPH_HEALTH } from '../apollo/queries'
+// import axios from 'axios';
 dayjs.extend(utc)
 
 const UPDATE = 'UPDATE'
@@ -165,7 +166,6 @@ export default function Provider({ children }) {
     </ApplicationContext.Provider>
   )
 }
-
 export function useLatestBlocks() {
   const [state, { updateLatestBlock, updateHeadBlock }] = useApplicationContext()
 
@@ -179,8 +179,8 @@ export function useLatestBlocks() {
           query: SUBGRAPH_HEALTH,
         })
         .then((res) => {
-          const syncedBlock = res.data.indexingStatusForCurrentVersion.chains[0].latestBlock.number
-          const headBlock = res.data.indexingStatusForCurrentVersion.chains[0].chainHeadBlock.number
+          const syncedBlock = res.data.health.latestIndexedBlockNumber;
+          const headBlock = res.data.health.chainHeadBlockNumber;
           if (syncedBlock && headBlock) {
             updateLatestBlock(syncedBlock)
             updateHeadBlock(headBlock)

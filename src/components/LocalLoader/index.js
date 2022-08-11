@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 const AnimatedImg = styled.div`
   animation: ${pulse} 800ms linear infinite;
   & > * {
-    width: 72px;
+    width: 200px;
   }
 `
 
@@ -39,7 +39,7 @@ const LocalLoader = ({ fill }) => {
   return (
     <Wrapper fill={fill}>
       <AnimatedImg>
-        <img src={require(darkMode ? '../../assets/logo_white.svg' : '../../assets/logo.svg')} alt="loading-icon" />
+        <img src={require('../../assets/canto_logo.png')} alt="loading-icon" />
       </AnimatedImg>
     </Wrapper>
   )

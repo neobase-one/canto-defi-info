@@ -230,6 +230,7 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
   try {
     // need to get the top tokens by liquidity by need token day datas
     const currentDate = parseInt(Date.now() / 86400 / 1000) * 86400 - 86400
+    // const currentDate = 1659390408;
 
     let tokenids = await client.query({
       query: TOKEN_TOP_DAY_DATAS,
@@ -610,7 +611,7 @@ const getTokenChartData = async (tokenAddress) => {
       let result = await client.query({
         query: TOKEN_CHART,
         variables: {
-          id: tokenAddress,
+          tokenAddress: tokenAddress,
         },
         fetchPolicy: 'cache-first',
       })

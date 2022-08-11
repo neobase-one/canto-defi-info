@@ -188,7 +188,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         transactions.mints.map((mint) => {
           let newTxn = {}
           newTxn.hash = mint.transaction.id
-          newTxn.timestamp = mint.transaction.timestamp
+          newTxn.timestamp = mint.timestamp
           newTxn.type = TXN_TYPE.ADD
           newTxn.token0Amount = mint.amount0
           newTxn.token1Amount = mint.amount1
@@ -203,7 +203,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         transactions.burns.map((burn) => {
           let newTxn = {}
           newTxn.hash = burn.transaction.id
-          newTxn.timestamp = burn.transaction.timestamp
+          newTxn.timestamp = burn.timestamp
           newTxn.type = TXN_TYPE.REMOVE
           newTxn.token0Amount = burn.amount0
           newTxn.token1Amount = burn.amount1
@@ -234,7 +234,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
           }
 
           newTxn.hash = swap.transaction.id
-          newTxn.timestamp = swap.transaction.timestamp
+          newTxn.timestamp = swap.timestamp
           newTxn.type = TXN_TYPE.SWAP
 
           newTxn.amountUSD = swap.amountUSD
@@ -304,7 +304,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         )}
         {!below1080 && (
           <DataText area="account">
-            <Link color={color} external href={'https://etherscan.io/address/' + item.account}>
+            <Link color={color} external href={'https://evm.explorer.canto.io/address/' + item.account}>
               {item.account && item.account.slice(0, 6) + '...' + item.account.slice(38, 42)}
             </Link>
           </DataText>

@@ -73,8 +73,8 @@ function GlobalPage() {
       <ContentWrapper>
         <div>
           <AutoColumn gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
-            <TYPE.largeHeader>{below800 ? 'StableSwap Analytics' : 'StableSwap Analytics'}</TYPE.largeHeader>
-            <Search />
+            <TYPE.largeHeader>{below800 ? 'Canto DeFi Analytics' : 'Canto DeFi Analytics'}</TYPE.largeHeader>
+            {/* <Search /> */}
             <GlobalStats />
           </AutoColumn>
           {below800 && ( // mobile card
