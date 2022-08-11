@@ -443,8 +443,8 @@ export const GLOBAL_DATA = (block) => {
 
 export const GLOBAL_TXNS = gql`
   query transactions {
-    transactions(first: 100, orderBy: timestamp, orderDirection: desc) {
-      mints(orderBy: timestamp, orderDirection: desc) {
+    transactions(input:{first: 100, orderBy: "timestamp", orderDirection: "DES"}) {
+      mints {
         transaction {
           id
           timestamp
@@ -465,7 +465,7 @@ export const GLOBAL_TXNS = gql`
         amount1
         amountUSD
       }
-      burns(orderBy: timestamp, orderDirection: desc) {
+      burns {
         transaction {
           id
           timestamp
@@ -486,7 +486,7 @@ export const GLOBAL_TXNS = gql`
         amount1
         amountUSD
       }
-      swaps(orderBy: timestamp, orderDirection: DES) {
+      swaps {
         transaction {
           id
           timestamp
