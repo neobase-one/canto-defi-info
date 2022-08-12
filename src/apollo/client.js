@@ -40,3 +40,11 @@ export const blockClient = new ApolloClient({
   }),
   cache: new InMemoryCache(),
 })
+
+export const marketsClient = new ApolloClient({
+  link: new HttpLink({
+    uri: 'http://52.4.130.64/graphql',
+  }),
+  cache: new InMemoryCache(),
+  shouldBatch: true,
+})
