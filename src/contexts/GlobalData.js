@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react'
-import { client } from '../apollo/client'
+import { client, marketsClient } from '../apollo/client'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { useTimeframe } from './Application'
@@ -18,12 +18,14 @@ import {
   ALL_PAIRS,
   ALL_TOKENS,
   TOP_LPS_PER_PAIRS,
+  GET_MARKETS,
 } from '../apollo/queries'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { useAllPairData } from './PairData'
 import { useTokenChartDataCombined } from './TokenData'
 const UPDATE = 'UPDATE'
 const UPDATE_TXNS = 'UPDATE_TXNS'
+const UPDATE_MKTS = 'UPDATE_MKTS'
 const UPDATE_CHART = 'UPDATE_CHART'
 const UPDATE_ETH_PRICE = 'UPDATE_ETH_PRICE'
 const ETH_PRICE_KEY = 'ETH_PRICE_KEY'
@@ -63,6 +65,13 @@ function reducer(state, { type, payload }) {
       return {
         ...state,
         transactions,
+      }
+    }
+    case UPDATE_MKTS: {
+      const { markets } = payload
+      return {
+        ...state,
+        markets,
       }
     }
     case UPDATE_CHART: {
@@ -133,6 +142,15 @@ export default function Provider({ children }) {
     })
   }, [])
 
+  const updateMarkets = useCallback((transactions) => {
+    dispatch({
+      type: UPDATE_MKTS,
+      payload: {
+        transactions,
+      },
+    })
+  }, [])
+
   const updateChart = useCallback((daily, weekly) => {
     dispatch({
       type: UPDATE_CHART,
@@ -188,6 +206,7 @@ export default function Provider({ children }) {
           {
             update,
             updateTransactions,
+            updateMarkets,
             updateChart,
             updateEthPrice,
             updateTopLps,
@@ -199,6 +218,7 @@ export default function Provider({ children }) {
           state,
           update,
           updateTransactions,
+          updateMarkets,
           updateTopLps,
           updateChart,
           updateEthPrice,
@@ -470,6 +490,27 @@ const getGlobalTransactions = async () => {
   return transactions
 }
 
+const getGlobalMarkets = async () => {
+  let markets = [];
+
+  try {
+    let result = await marketsClient.query({
+      query: GET_MARKETS,
+      fetchPolicy: 'cache-first',
+    })
+
+    console.log(result)
+
+    // result?.data?.markets.forEach(market => markets.push(market));
+    markets = result?.data?.markets || [];
+    console.log(markets)
+  } catch (e) {
+    console.log(e)
+  }
+
+  return markets
+}
+
 /**
  * Gets the current price  of ETH, 24 hour price, and % change between them
  */
@@ -654,6 +695,22 @@ export function useGlobalTransactions() {
     fetchData()
   }, [updateTransactions, transactions])
   return transactions
+}
+
+export function useGlobalMarkets() {
+  const [state, { updateMarkets }] = useGlobalDataContext()
+  const markets = state?.markets
+  useEffect(() => {
+    async function fetchData() {
+      if (!markets) {
+        let mkts = await getGlobalMarkets()
+        updateMarkets(mkts)
+      }
+    }
+    fetchData()
+  }, [updateMarkets, markets])
+  console.log(markets)
+  return markets
 }
 
 export function useEthPrice() {

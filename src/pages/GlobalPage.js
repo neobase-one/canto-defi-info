@@ -8,11 +8,12 @@ import { AutoColumn } from '../components/Column'
 import PairList from '../components/PairList'
 import TopTokenList from '../components/TokenList'
 import TxnList from '../components/TxnList'
+import MktList from "../components/MarketList"
 import GlobalChart from '../components/GlobalChart'
 import Search from '../components/Search'
 import GlobalStats from '../components/GlobalStats'
 
-import { useGlobalData, useGlobalTransactions } from '../contexts/GlobalData'
+import { useGlobalData, useGlobalMarkets, useGlobalTransactions } from '../contexts/GlobalData'
 import { useAllPairData } from '../contexts/PairData'
 import { useMedia } from 'react-use'
 import Panel from '../components/Panel'
@@ -25,6 +26,8 @@ import { CustomLink } from '../components/Link'
 import { PageWrapper, ContentWrapper } from '../components'
 import CheckBox from '../components/Checkbox'
 import QuestionHelper from '../components/QuestionHelper'
+import { GET_MARKETS } from '../apollo/queries'
+import { marketsClient } from '../apollo/client'
 
 const ListOptions = styled(AutoRow)`
   height: 40px;
@@ -51,6 +54,7 @@ function GlobalPage() {
   const allPairs = useAllPairData()
   const allTokens = useAllTokenData()
   const transactions = useGlobalTransactions()
+  const markets = useGlobalMarkets()
   const { totalLiquidityUSD, oneDayVolumeUSD, volumeChangeUSD, liquidityChangeUSD } = useGlobalData()
 
   // breakpoints
@@ -167,6 +171,14 @@ function GlobalPage() {
           </span>
           <Panel style={{ margin: '1rem 0' }}>
             <TxnList transactions={transactions} />
+          </Panel>
+          <span>
+            <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '2rem' }}>
+              Markets
+            </TYPE.main>
+          </span>
+          <Panel style={{ margin: '1rem 0' }}>
+            <MktList markets={markets} />
           </Panel>
         </div>
       </ContentWrapper>
