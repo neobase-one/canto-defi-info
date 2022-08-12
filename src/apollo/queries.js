@@ -441,6 +441,29 @@ export const GLOBAL_DATA = (block) => {
   return gql(queryString)
 }
 
+export const GET_MARKETS = gql`
+  query markets{
+    markets(input: {
+      orderBy: "totalCash", orderDirection: "ASC"
+    }) {
+      id
+      symbol
+      accrualBlockNumber
+      totalSupply
+      exchangeRate
+      totalReserves
+      totalCash
+      totalDeposits
+      totalBorrows
+      perBlockBorrowInterest
+      perBlockSupplyInterest
+      borrowIndex
+      tokenPerEthRatio
+      tokenPerUSDRatio
+    }
+  }
+`
+
 export const GLOBAL_TXNS = gql`
   query transactions {
     transactions(input:{first: 100, orderBy: "timestamp", orderDirection: "DES"}) {
