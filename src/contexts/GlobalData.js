@@ -142,11 +142,11 @@ export default function Provider({ children }) {
     })
   }, [])
 
-  const updateMarkets = useCallback((transactions) => {
+  const updateMarkets = useCallback((markets) => {
     dispatch({
       type: UPDATE_MKTS,
       payload: {
-        transactions,
+        markets,
       },
     })
   }, [])
