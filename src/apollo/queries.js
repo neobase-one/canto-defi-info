@@ -460,6 +460,8 @@ export const GET_MARKETS = gql`
       borrowIndex
       tokenPerEthRatio
       tokenPerUSDRatio
+      supplyAPY
+      borrowAPY
     }
   }
 `

@@ -77,7 +77,7 @@ function GlobalPage() {
       <ContentWrapper>
         <div>
           <AutoColumn gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
-            <TYPE.largeHeader>{below800 ? 'Canto DeFi Analytics' : 'Canto DeFi Analytics'}</TYPE.largeHeader>
+            <TYPE.largeHeader>{below800 ? 'StableSwap Analytics' : 'Canto StableSwap Analytics'}</TYPE.largeHeader>
             {/* <Search /> */}
             <GlobalStats />
           </AutoColumn>
@@ -172,6 +172,9 @@ function GlobalPage() {
           <Panel style={{ margin: '1rem 0' }}>
             <TxnList transactions={transactions} />
           </Panel>
+          <AutoColumn gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
+            <TYPE.largeHeader>{below800 ? 'LM Analytics' : 'Canto LM Analytics'}</TYPE.largeHeader>
+          </AutoColumn>
           <span>
             <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '2rem' }}>
               Markets

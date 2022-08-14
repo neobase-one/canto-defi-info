@@ -222,13 +222,13 @@ function MktList({ markets, symbol0Override, symbol1Override, color }) {
                     {formattedNum(item?.totalSupply, true)}
                 </DataText>
                 <DataText area="supplyAPY">
-                    {(item?.supplyAPY || 0) + "%"}
+                    {(parseFloat(item?.supplyAPY)?.toFixed(3) || 0) + "%"}
                 </DataText>
                 <DataText area="totalBorrows">
                     {formattedNum(item?.totalBorrows, true)}
                 </DataText>
                 <DataText area="borrowAPY">
-                    {(item?.borrowAPY || 0) + "%"}
+                    {(parseFloat(item?.borrowAPY)?.toFixed(3) || 0) + "%"}
                 </DataText>
             </DashGrid>
         )
