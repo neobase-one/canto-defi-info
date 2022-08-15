@@ -4,7 +4,7 @@ import { HttpLink } from 'apollo-link-http'
 
 export const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://52.4.130.64/graphql',
+    uri: 'https://api.defi.canto.neobase.one',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
@@ -12,7 +12,7 @@ export const client = new ApolloClient({
 
 export const healthClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://52.4.130.64/graphql',
+    uri: 'https://api.defi.canto.neobase.one',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
@@ -20,7 +20,7 @@ export const healthClient = new ApolloClient({
 
 export const v1Client = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://52.4.130.64/graphql',
+    uri: 'https://api.defi.canto.neobase.one',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
@@ -28,7 +28,7 @@ export const v1Client = new ApolloClient({
 
 export const stakingClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://52.4.130.64/graphql',
+    uri: 'https://api.defi.canto.neobase.one',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
@@ -36,14 +36,14 @@ export const stakingClient = new ApolloClient({
 
 export const blockClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://52.4.130.64/graphql',
+    uri: 'https://api.defi.canto.neobase.one',
   }),
   cache: new InMemoryCache(),
 })
 
 export const marketsClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://52.4.130.64/graphql',
+    uri: 'https://api.defi.canto.neobase.one',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,

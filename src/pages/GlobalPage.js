@@ -76,7 +76,7 @@ function GlobalPage() {
       <ThemedBackground backgroundColor={transparentize(0.6, '#ff007a')} />
       <ContentWrapper>
         <div>
-          <AutoColumn gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
+          <AutoColumn gap="14px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
             <TYPE.largeHeader>{below800 ? 'StableSwap Analytics' : 'Canto StableSwap Analytics'}</TYPE.largeHeader>
             {/* <Search /> */}
             <GlobalStats />
@@ -172,7 +172,9 @@ function GlobalPage() {
           <Panel style={{ margin: '1rem 0' }}>
             <TxnList transactions={transactions} />
           </Panel>
-          <AutoColumn gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
+          <br />
+          <AutoColumn gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }} />
+          <AutoColumn gap="14px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
             <TYPE.largeHeader>{below800 ? 'LM Analytics' : 'Canto LM Analytics'}</TYPE.largeHeader>
           </AutoColumn>
           <span>
