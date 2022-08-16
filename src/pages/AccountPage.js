@@ -217,10 +217,10 @@ function AccountPage({ account }) {
                 <Flyout>
                   <AutoColumn gap="0px">
                     {positions?.map((p, i) => {
-                      if (p.pair.token1.symbol === 'WETH') {
+                      if (p.pair.token1.symbol === 'WCANTO') {
                         p.pair.token1.symbol = 'CANTO'
                       }
-                      if (p.pair.token0.symbol === 'WETH') {
+                      if (p.pair.token0.symbol === 'WCANTO') {
                         p.pair.token0.symbol = 'CANTO'
                       }
                       return (

@@ -269,7 +269,7 @@ export function useUserPositionChart(position, account) {
         startDateTimestamp,
         currentPairData,
         pairSnapshots,
-        currentETHPrice
+        currentCANTOPrice
       )
       updateUserPairReturns(account, pairAddress, fetchedData)
     }
@@ -281,7 +281,7 @@ export function useUserPositionChart(position, account) {
       currentPairData &&
       Object.keys(currentPairData).length > 0 &&
       pairAddress &&
-      currentETHPrice
+      currentCANTOPrice
     ) {
       fetchData()
     }
@@ -292,7 +292,7 @@ export function useUserPositionChart(position, account) {
     formattedHistory,
     pairAddress,
     currentPairData,
-    currentETHPrice,
+    currentCANTOPrice,
     updateUserPairReturns,
     position.pair.id,
   ])
@@ -420,7 +420,7 @@ export function useUserLiquidityChart(account) {
               totalUSD +
               (ownershipPerPair[dayData.pairAddress]
                 ? (parseFloat(ownershipPerPair[dayData.pairAddress].lpTokenBalance) / parseFloat(dayData.totalSupply)) *
-                  parseFloat(dayData.reserveUSD)
+                parseFloat(dayData.reserveUSD)
                 : 0))
           } else {
             return totalUSD

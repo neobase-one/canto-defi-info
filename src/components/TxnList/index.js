@@ -288,7 +288,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
           </Link>
         </DataText>
         <DataText area="value">
-          {currency === 'CANTO' ? 'Ⓒ ' + formattedNum(item.valueETH) : formattedNum(item.amountUSD, true)}
+          {currency === 'CANTO' ? 'Ⓒ ' + formattedNum(item.valueCANTO) : formattedNum(item.amountUSD, true)}
         </DataText>
         {!below780 && (
           <>

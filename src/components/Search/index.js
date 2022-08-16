@@ -314,13 +314,13 @@ export const Search = ({ small = false }) => {
         .sort((a, b) => {
           const pairA = allPairData[a.id]
           const pairB = allPairData[b.id]
-          if (pairA?.trackedReserveETH && pairB?.trackedReserveETH) {
-            return parseFloat(pairA.trackedReserveETH) > parseFloat(pairB.trackedReserveETH) ? -1 : 1
+          if (pairA?.trackedReserveCANTO && pairB?.trackedReserveCANTO) {
+            return parseFloat(pairA.trackedReserveCANTO) > parseFloat(pairB.trackedReserveCANTO) ? -1 : 1
           }
-          if (pairA?.trackedReserveETH && !pairB?.trackedReserveETH) {
+          if (pairA?.trackedReserveCANTO && !pairB?.trackedReserveCANTO) {
             return -1
           }
-          if (!pairA?.trackedReserveETH && pairB?.trackedReserveETH) {
+          if (!pairA?.trackedReserveCANTO && pairB?.trackedReserveCANTO) {
             return 1
           }
           return 0

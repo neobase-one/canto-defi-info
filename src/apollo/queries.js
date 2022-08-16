@@ -88,7 +88,7 @@ export const PRICES_BY_BLOCK = (tokenAddress, blocks) => {
   queryString += blocks.map(
     (block) => `
       t${block.timestamp}:token(id:"${tokenAddress}", block: { number: ${block.number} }) { 
-        derivedETH
+        derivedCANTO
       }
     `
   )
@@ -144,10 +144,10 @@ export const SHARE_VALUE = (pairAddress, blocks) => {
         reserveUSD
         totalSupply 
         token0{
-          derivedETH
+          derivedCANTO
         }
         token1{
-          derivedETH
+          derivedCANTO
         }
       }
     `
@@ -165,7 +165,7 @@ export const SHARE_VALUE = (pairAddress, blocks) => {
   return gql(queryString)
 }
 
-export const ETH_PRICE = (block) => {
+export const CANTO_PRICE = (block) => {
   const queryString = block
     ? `
     query getBundles {
@@ -275,12 +275,12 @@ export const USER_POSITIONS = gql`
         token0 {
           id
           symbol
-          derivedETH
+          derivedCANTO
         }
         token1 {
           id
           symbol
-          derivedETH
+          derivedCANTO
         }
         totalSupply
       }
@@ -417,9 +417,9 @@ export const GLOBAL_CHART = gql`
       date
       totalVolumeUSD
       dailyVolumeUSD
-      dailyVolumeETH
+      dailyVolumeCANTO
       totalLiquidityUSD
-      totalLiquidityETH
+      totalLiquidityCANTO
     }
   }
 `
@@ -430,10 +430,10 @@ export const GLOBAL_DATA = (block) => {
        input: { id: "${FACTORY_ADDRESS}" ${block ? `, block: ${block}` : ``} }) {
         id
         totalVolumeUSD
-        totalVolumeETH
+        totalVolumeCANTO
         untrackedVolumeUSD
         totalLiquidityUSD
-        totalLiquidityETH
+        totalLiquidityCANTO
         txCount
         pairCount
       }
@@ -622,7 +622,7 @@ export const PAIR_SEARCH = gql`
 export const ALL_PAIRS = gql`
   query getPairs($skip: Int!) {
     getPairs(input: {
-      first: 500, skip: $skip, orderBy: "trackedReserveETH", orderDirection: "DES"
+      first: 500, skip: $skip, orderBy: "trackedReserveCANTO", orderDirection: "DES"
     }) {
       id
       token0 {
@@ -648,21 +648,21 @@ const PairFields = `
       symbol
       name
       totalLiquidity
-      derivedETH
+      derivedCANTO
     }
     token1 {
       id
       symbol
       name
       totalLiquidity
-      derivedETH
+      derivedCANTO
     }
     reserve0
     reserve1
     reserveUSD
     totalSupply
-    trackedReserveETH
-    reserveETH
+    trackedReserveCANTO
+    reserveCANTO
     volumeUSD
     untrackedVolumeUSD
     token0Price
@@ -720,7 +720,7 @@ export const PAIRS_BULK = gql`
   ${PairFields}
   query getPairs($allPairs: [String!]) {
     getPairs(input: {
-      first: 500, id_in: $allPairs, orderBy: "trackedReserveETH", orderDirection: "DES"
+      first: 500, id_in: $allPairs, orderBy: "trackedReserveCANTO", orderDirection: "DES"
     }) {
       ...PairFields
     }
@@ -736,11 +736,11 @@ export const PAIRS_HISTORICAL_BULK = (block, pairs) => {
   let queryString = `
   query pairs {
     getPairs(input: {
-      first: 200, id_in: ${pairsString}, block: ${block}, orderBy: "trackedReserveETH", orderDirection: "DES"
+      first: 200, id_in: ${pairsString}, block: ${block}, orderBy: "trackedReserveCANTO", orderDirection: "DES"
     }) {
       id
       reserveUSD
-      trackedReserveETH
+      trackedReserveCANTO
       volumeUSD
       untrackedVolumeUSD
     }
@@ -757,8 +757,8 @@ export const TOKEN_CHART = gql`
       priceUSD
       totalLiquidityToken
       totalLiquidityUSD
-      totalLiquidityETH
-      dailyVolumeETH
+      totalLiquidityCANTO
+      dailyVolumeCANTO
       dailyVolumeToken
       dailyVolumeUSD
     }
@@ -770,7 +770,7 @@ const TokenFields = `
     id
     name
     symbol
-    derivedETH
+    derivedCANTO
     tradeVolume
     tradeVolumeUSD
     untrackedVolumeUSD
@@ -810,7 +810,7 @@ export const TOKENS_HISTORICAL_BULK = (tokens, block) => {
       id
       name
       symbol
-      derivedETH
+      derivedCANTO
       tradeVolume
       tradeVolumeUSD
       untrackedVolumeUSD

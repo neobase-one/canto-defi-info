@@ -14,7 +14,7 @@ import {
   GLOBAL_DATA,
   GLOBAL_TXNS,
   GLOBAL_CHART,
-  ETH_PRICE,
+  CANTO_PRICE,
   ALL_PAIRS,
   ALL_TOKENS,
   TOP_LPS_PER_PAIRS,
@@ -27,8 +27,8 @@ const UPDATE = 'UPDATE'
 const UPDATE_TXNS = 'UPDATE_TXNS'
 const UPDATE_MKTS = 'UPDATE_MKTS'
 const UPDATE_CHART = 'UPDATE_CHART'
-const UPDATE_ETH_PRICE = 'UPDATE_ETH_PRICE'
-const ETH_PRICE_KEY = 'ETH_PRICE_KEY'
+const UPDATE_CANTO_PRICE = 'UPDATE_CANTO_PRICE'
+const CANTO_PRICE_KEY = 'CANTO_PRICE_KEY'
 const UPDATE_ALL_PAIRS_IN_UNISWAP = 'UPDAUPDATE_ALL_PAIRS_IN_UNISWAPTE_TOP_PAIRS'
 const UPDATE_ALL_TOKENS_IN_UNISWAP = 'UPDATE_ALL_TOKENS_IN_UNISWAP'
 const UPDATE_TOP_LPS = 'UPDATE_TOP_LPS'
@@ -84,10 +84,10 @@ function reducer(state, { type, payload }) {
         },
       }
     }
-    case UPDATE_ETH_PRICE: {
+    case UPDATE_CANTO_PRICE: {
       const { ethPrice, oneDayPrice, ethPriceChange } = payload
       return {
-        [ETH_PRICE_KEY]: ethPrice,
+        [CANTO_PRICE_KEY]: ethPrice,
         oneDayPrice,
         ethPriceChange,
       }
@@ -163,7 +163,7 @@ export default function Provider({ children }) {
 
   const updateEthPrice = useCallback((ethPrice, oneDayPrice, ethPriceChange) => {
     dispatch({
-      type: UPDATE_ETH_PRICE,
+      type: UPDATE_CANTO_PRICE,
       payload: {
         ethPrice,
         oneDayPrice,
@@ -319,10 +319,10 @@ async function getGlobalData(ethPrice, oldEthPrice) {
       )
 
       // format the total liquidity in USD
-      data.totalLiquidityUSD = data.totalLiquidityETH * ethPrice
+      data.totalLiquidityUSD = data.totalLiquidityCANTO * ethPrice
       const liquidityChangeUSD = getPercentChange(
-        data.totalLiquidityETH * ethPrice,
-        oneDayData.totalLiquidityETH * oldEthPrice
+        data.totalLiquidityCANTO * ethPrice,
+        oneDayData.totalLiquidityCANTO * oldEthPrice
       )
 
       // add relevant fields with the calculated amounts
@@ -512,7 +512,7 @@ const getGlobalMarkets = async () => {
 }
 
 /**
- * Gets the current price  of ETH, 24 hour price, and % change between them
+ * Gets the current price  of CANTO, 24 hour price, and % change between them
  */
 const getEthPrice = async () => {
   const utcCurrentTime = dayjs()
@@ -520,28 +520,28 @@ const getEthPrice = async () => {
 
   let ethPrice = 0
   let ethPriceOneDay = 0
-  let priceChangeETH = 0
+  let priceChangeCANTO = 0
 
   try {
     let oneDayBlock = await getBlockFromTimestamp(utcOneDayBack)
     let result = await client.query({
-      query: ETH_PRICE(),
+      query: CANTO_PRICE(),
       fetchPolicy: 'cache-first',
     })
     let resultOneDay = await client.query({
-      query: ETH_PRICE(oneDayBlock),
+      query: CANTO_PRICE(oneDayBlock),
       fetchPolicy: 'cache-first',
     })
     const currentPrice = result?.data?.getBundles[0]?.ethPrice
     const oneDayBackPrice = resultOneDay?.data?.getBundles[0]?.ethPrice
-    priceChangeETH = getPercentChange(currentPrice, oneDayBackPrice)
+    priceChangeCANTO = getPercentChange(currentPrice, oneDayBackPrice)
     ethPrice = currentPrice
     ethPriceOneDay = oneDayBackPrice
   } catch (e) {
     console.log(e)
   }
 
-  return [ethPrice, ethPriceOneDay, priceChangeETH]
+  return [ethPrice, ethPriceOneDay, priceChangeCANTO]
 }
 
 const PAIRS_TO_FETCH = 500
@@ -715,7 +715,7 @@ export function useGlobalMarkets() {
 
 export function useEthPrice() {
   const [state, { updateEthPrice }] = useGlobalDataContext()
-  const ethPrice = state?.[ETH_PRICE_KEY]
+  const ethPrice = state?.[CANTO_PRICE_KEY]
   const ethPriceOld = state?.['oneDayPrice']
   useEffect(() => {
     async function checkForEthPrice() {
