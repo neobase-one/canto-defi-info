@@ -241,7 +241,7 @@ export async function getShareValueOverTime(pairAddress, timestamps) {
         token0DerivedCANTO: result.data[row].token0.derivedCANTO,
         token1DerivedCANTO: result.data[row].token1.derivedCANTO,
         roiUsd: values && values[0] ? sharePriceUsd / values[0]['sharePriceUsd'] : 1,
-        ethPrice: 0,
+        cantoPrice: 0,
         token0PriceUSD: 0,
         token1PriceUSD: 0,
       })
@@ -253,9 +253,9 @@ export async function getShareValueOverTime(pairAddress, timestamps) {
   for (var brow in result?.data) {
     let timestamp = brow.split('b')[1]
     if (timestamp) {
-      values[index].ethPrice = result.data[brow].ethPrice
-      values[index].token0PriceUSD = result.data[brow].ethPrice * values[index].token0DerivedCANTO
-      values[index].token1PriceUSD = result.data[brow].ethPrice * values[index].token1DerivedCANTO
+      values[index].cantoPrice = result.data[brow].cantoPrice
+      values[index].token0PriceUSD = result.data[brow].cantoPrice * values[index].token0DerivedCANTO
+      values[index].token1PriceUSD = result.data[brow].cantoPrice * values[index].token1DerivedCANTO
       index += 1
     }
   }

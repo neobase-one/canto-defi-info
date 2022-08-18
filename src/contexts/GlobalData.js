@@ -85,11 +85,11 @@ function reducer(state, { type, payload }) {
       }
     }
     case UPDATE_CANTO_PRICE: {
-      const { ethPrice, oneDayPrice, ethPriceChange } = payload
+      const { cantoPrice, oneDayPrice, cantoPriceChange } = payload
       return {
-        [CANTO_PRICE_KEY]: ethPrice,
+        [CANTO_PRICE_KEY]: cantoPrice,
         oneDayPrice,
-        ethPriceChange,
+        cantoPriceChange,
       }
     }
 
@@ -161,13 +161,13 @@ export default function Provider({ children }) {
     })
   }, [])
 
-  const updateEthPrice = useCallback((ethPrice, oneDayPrice, ethPriceChange) => {
+  const updateEthPrice = useCallback((cantoPrice, oneDayPrice, cantoPriceChange) => {
     dispatch({
       type: UPDATE_CANTO_PRICE,
       payload: {
-        ethPrice,
+        cantoPrice,
         oneDayPrice,
-        ethPriceChange,
+        cantoPriceChange,
       },
     })
   }, [])
@@ -236,11 +236,11 @@ export default function Provider({ children }) {
  * Gets all the global data for the overview page.
  * Needs current eth price and the old eth price to get
  * 24 hour USD changes.
- * @param {*} ethPrice
+ * @param {*} cantoPrice
  * @param {*} oldEthPrice
  */
 
-async function getGlobalData(ethPrice, oldEthPrice) {
+async function getGlobalData(cantoPrice, oldEthPrice) {
   // data for each day , historic data used for % changes
   let data = {}
   let oneDayData = {}
@@ -319,9 +319,9 @@ async function getGlobalData(ethPrice, oldEthPrice) {
       )
 
       // format the total liquidity in USD
-      data.totalLiquidityUSD = data.totalLiquidityCANTO * ethPrice
+      data.totalLiquidityUSD = data.totalLiquidityCANTO * cantoPrice
       const liquidityChangeUSD = getPercentChange(
-        data.totalLiquidityCANTO * ethPrice,
+        data.totalLiquidityCANTO * cantoPrice,
         oneDayData.totalLiquidityCANTO * oldEthPrice
       )
 
@@ -518,8 +518,8 @@ const getEthPrice = async () => {
   const utcCurrentTime = dayjs()
   const utcOneDayBack = utcCurrentTime.subtract(1, 'day').startOf('minute').unix()
 
-  let ethPrice = 0
-  let ethPriceOneDay = 0
+  let cantoPrice = 0
+  let cantoPriceOneDay = 0
   let priceChangeCANTO = 0
 
   try {
@@ -532,16 +532,16 @@ const getEthPrice = async () => {
       query: CANTO_PRICE(oneDayBlock),
       fetchPolicy: 'cache-first',
     })
-    const currentPrice = result?.data?.getBundles[0]?.ethPrice
-    const oneDayBackPrice = resultOneDay?.data?.getBundles[0]?.ethPrice
+    const currentPrice = result?.data?.getBundles[0]?.cantoPrice
+    const oneDayBackPrice = resultOneDay?.data?.getBundles[0]?.cantoPrice
     priceChangeCANTO = getPercentChange(currentPrice, oneDayBackPrice)
-    ethPrice = currentPrice
-    ethPriceOneDay = oneDayBackPrice
+    cantoPrice = currentPrice
+    cantoPriceOneDay = oneDayBackPrice
   } catch (e) {
     console.log(e)
   }
 
-  return [ethPrice, ethPriceOneDay, priceChangeCANTO]
+  return [cantoPrice, cantoPriceOneDay, priceChangeCANTO]
 }
 
 const PAIRS_TO_FETCH = 500
@@ -609,7 +609,7 @@ async function getAllTokensOnUniswap() {
 export function useGlobalData() {
   const [state, { update, updateAllPairsInUniswap, updateAllTokensInUniswap }] = useGlobalDataContext()
   console.log(state)
-  const [ethPrice, oldEthPrice] = useEthPrice()
+  const [cantoPrice, oldEthPrice] = useEthPrice()
 
   const data = state?.globalData
 
@@ -617,7 +617,7 @@ export function useGlobalData() {
 
   useEffect(() => {
     async function fetchData() {
-      let globalData = await getGlobalData(ethPrice, oldEthPrice)
+      let globalData = await getGlobalData(cantoPrice, oldEthPrice)
 
       globalData && update(globalData)
 
@@ -631,10 +631,10 @@ export function useGlobalData() {
       console.log(allPairs)
       console.log(allTokens)
     }
-    if (!data && ethPrice && oldEthPrice) {
+    if (!data && cantoPrice && oldEthPrice) {
       fetchData()
     }
-  }, [ethPrice, oldEthPrice, update, data, updateAllPairsInUniswap, updateAllTokensInUniswap])
+  }, [cantoPrice, oldEthPrice, update, data, updateAllPairsInUniswap, updateAllTokensInUniswap])
 
   return data || {}
 }
@@ -715,19 +715,19 @@ export function useGlobalMarkets() {
 
 export function useEthPrice() {
   const [state, { updateEthPrice }] = useGlobalDataContext()
-  const ethPrice = state?.[CANTO_PRICE_KEY]
-  const ethPriceOld = state?.['oneDayPrice']
+  const cantoPrice = state?.[CANTO_PRICE_KEY]
+  const cantoPriceOld = state?.['oneDayPrice']
   useEffect(() => {
     async function checkForEthPrice() {
-      if (!ethPrice) {
+      if (!cantoPrice) {
         let [newPrice, oneDayPrice, priceChange] = await getEthPrice()
         updateEthPrice(newPrice, oneDayPrice, priceChange)
       }
     }
     checkForEthPrice()
-  }, [ethPrice, updateEthPrice])
+  }, [cantoPrice, updateEthPrice])
 
-  return [ethPrice, ethPriceOld]
+  return [cantoPrice, cantoPriceOld]
 }
 
 export function useAllPairsInUniswap() {
