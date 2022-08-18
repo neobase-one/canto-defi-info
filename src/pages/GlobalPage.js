@@ -139,7 +139,9 @@ function GlobalPage() {
               <TYPE.main fontSize={'1.125rem'} style={{ whiteSpace: 'nowrap' }}>
                 Top Tokens
               </TYPE.main>
-              <CustomLink to={'/tokens'}>See All</CustomLink>
+              <CustomLink to={'/tokens'} color="#06fc99">
+                See All
+              </CustomLink>
             </RowBetween>
           </ListOptions>
           <Panel style={{ marginTop: '6px', padding: '1.125rem 0 ' }}>
@@ -157,7 +159,9 @@ function GlobalPage() {
                   text={'Hide untracked pairs'}
                 />
                 <QuestionHelper text="USD amounts may be inaccurate in low liquiidty pairs or pairs without CANTO or stablecoins." />
-                <CustomLink to={'/lendingmarket'}>See All</CustomLink>
+                <CustomLink to={'/lendingmarket'} color="#06fc99">
+                  See All
+                </CustomLink>
               </AutoRow>
             </RowBetween>
           </ListOptions>

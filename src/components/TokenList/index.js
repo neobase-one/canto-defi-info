@@ -90,7 +90,7 @@ const PageButtons = styled.div`
 `
 
 const Arrow = styled.div`
-  color: ${({ theme }) => theme.primary1};
+  color: rgb(238, 75, 43);
   opacity: ${(props) => (props.faded ? 0.3 : 1)};
   padding: 0 20px;
   user-select: none;
@@ -153,7 +153,6 @@ const ClickableText = styled(Text)`
     opacity: 0.6;
   }
   user-select: none;
-  color: ${({ theme }) => theme.text1} !important;
   @media screen and (max-width: 640px) {
     font-size: 0.85rem;
   }
@@ -275,7 +274,6 @@ function TopTokenList({ tokens, itemMax = 10, useTracked = false }) {
           {!below680 && <th></th>}
           <th>
             <ClickableText
-              color="text"
               area="name"
               fontWeight="500"
               onClick={(e) => {

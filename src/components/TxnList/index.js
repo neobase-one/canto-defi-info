@@ -92,7 +92,7 @@ const PageButtons = styled.div`
 `
 
 const Arrow = styled.div`
-  color: #2f80ed;
+  color: rgb(238, 75, 43);
   opacity: ${(props) => (props.faded ? 0.3 : 1)};
   padding: 0 20px;
   user-select: none;
@@ -179,13 +179,12 @@ const DataText = styled(Flex)`
 
 const SortText = styled.button`
   cursor: pointer;
-  font-weight: ${({ active, theme }) => (active ? 500 : 400)};
+  font-family: IBM Plex Mono, monospace;
   margin-right: 0.75rem !important;
   border: none;
   background-color: transparent;
-  font-size: 1rem;
   padding: 0px;
-  color: ${({ active, theme }) => (active ? theme.text1 : theme.text3)};
+  color: ${({ active, theme }) => (active ? '#06fc99' : theme.text3)};
   outline: none;
 
   @media screen and (max-width: 600px) {
@@ -382,7 +381,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         <thead>
           <th>
             {below780 ? (
-              <DropdownSelect options={TXN_TYPE} active={txFilter} setActive={setTxFilter} color={color} />
+              <DropdownSelect options={TXN_TYPE} active={txFilter} setActive={setTxFilter} color="#06fc99" />
             ) : (
               <>
                 <SortText
