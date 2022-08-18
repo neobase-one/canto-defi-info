@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, useHistory } from 'react-router-dom'
 import { Box } from 'rebass'
 import styled from 'styled-components'
 
@@ -33,6 +33,8 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { IconButton } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
+import { useSessionStart } from '../contexts/Application'
 
 const StaticOverlay = styled.div`
   -webkit-font-smoothing: antialiased;
@@ -79,6 +81,42 @@ const GridRow = styled.div`
   justify-content: space-between;
 `
 
+const useStyles = makeStyles({
+  list: {
+    width: 250
+  },
+  fullList: {
+    width: "auto"
+  },
+  paper: {
+    background: "black",
+  }
+});
+
+const Polling = styled.div`
+  position: fixed;
+  display: flex;
+  left: 0;
+  bottom: 0;
+  padding: 1rem;
+  color: white;
+  opacity: 0.4;
+  transition: opacity 0.25s ease;
+  :hover {
+    opacity: 1;
+  }
+`
+const PollingDot = styled.div`
+  width: 8px;
+  height: 8px;
+  min-height: 8px;
+  min-width: 8px;
+  margin-right: 0.5rem;
+  margin-top: 3px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.green1};
+`
+
 function GlobalPage() {
   // get data for lists and totals
   const allPairs = useAllPairData()
@@ -113,6 +151,9 @@ function GlobalPage() {
     setState({ ...state, [anchor]: open });
   };
 
+  const seconds = useSessionStart()
+  const history = useHistory()
+
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
@@ -121,26 +162,30 @@ function GlobalPage() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
+        <ListItem key={"stableswap"} disablePadding>
+          <ListItem button key={"stableswap"} onClick={() => history.push('/stableswap')}>
+            <ListItemText primary={"Stable Swap"} color="green" />
           </ListItem>
-        ))}
+        </ListItem>
+        <ListItem key={"lendingmarket"} disablePadding>
+          <ListItem button key={"lendingmarket"} onClick={() => history.push('/lendingmarket')}>
+            <ListItemText primary={"Lending Market"} color="green" />
+          </ListItem>
+        </ListItem>
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          </ListItem>
-        ))}
-      </List>
+      <Polling style={{ marginLeft: '.5rem' }}>
+        <PollingDot />
+        <a href="/" style={{ color: 'white' }}>
+          <TYPE.small color={'white'}>
+            Updated {!!seconds ? seconds + 's' : '-'} ago <br />
+          </TYPE.small>
+        </a>
+      </Polling>
     </Box>
   );
+
+  const classes = useStyles();
 
   return (
     <PageWrapper>
@@ -154,6 +199,7 @@ function GlobalPage() {
                 <MenuIcon style={{ color: 'red' }} />
               </IconButton>
               <Drawer
+                classes={{ paper: classes.paper }}
                 anchor={anchor}
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}

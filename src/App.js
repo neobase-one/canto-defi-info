@@ -80,12 +80,7 @@ const WarningBanner = styled.div`
  */
 const LayoutWrapper = ({ children, savedOpen, setSavedOpen }) => {
   return (
-    <>
-      <ContentWrapper open={savedOpen}>
-        <SideNav />
-        <Center id="center">{children}</Center>
-      </ContentWrapper>
-    </>
+    <Center id="center">{children}</Center>
   )
 }
 
