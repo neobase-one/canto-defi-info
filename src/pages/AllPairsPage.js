@@ -139,7 +139,7 @@ function AllPairsPage() {
   const history = useHistory()
 
   const sideBarText = {
-    color: "red",
+    color: "#06fc99",
     fontFamily: "IBM Plex Mono, monospace",
   };
 
