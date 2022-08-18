@@ -125,6 +125,7 @@ export const PageWrapper = styled.div`
   background-color: #111;
   background: repeating-linear-gradient(0deg, #010000 0%, #010000 4px, #021911 4px, #021911 8px);
   background-repeat: repeat-y;
+  min-height: 100vh;
 
   @media screen and (max-width: 600px) {
     & > * {

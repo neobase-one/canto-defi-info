@@ -27,6 +27,7 @@ import { Icon, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { useSessionStart } from '../contexts/Application'
 import { Box } from 'rebass'
+import Logo from "../assets/logo.svg"
 
 const Header = styled.div`
   width: 100%;
@@ -139,6 +140,7 @@ function AllPairsPage() {
 
   const sideBarText = {
     color: "red",
+    fontFamily: "IBM Plex Mono, monospace",
   };
 
   const list = (anchor) => (
@@ -192,7 +194,10 @@ function AllPairsPage() {
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
               >
-                <img src="../assets/logo.svg" />
+                <div style={{ display: "flex", justifyContent: "center", paddingTop: "10%" }}>
+                  <img src={Logo} width="15%" />
+                  {/* <div style={{ color: "#06fc99" }}>Canto</div> */}
+                </div>
                 {list(anchor)}
               </Drawer>
             </React.Fragment>

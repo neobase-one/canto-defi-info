@@ -35,6 +35,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Icon, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { useSessionStart } from '../contexts/Application'
+import Logo from "../assets/logo.svg"
 
 const StaticOverlay = styled.div`
   -webkit-font-smoothing: antialiased;
@@ -156,6 +157,7 @@ function GlobalPage() {
 
   const sideBarText = {
     color: "red",
+    fontFamily: "IBM Plex Mono, monospace",
   };
 
   const list = (anchor) => (
@@ -209,7 +211,10 @@ function GlobalPage() {
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
               >
-                <img src="../assets/logo.svg" />
+                <div style={{ display: "flex", justifyContent: "center", paddingTop: "10%" }}>
+                  <img src={Logo} width="15%" />
+                  <AutoColumn gap="14px" />
+                </div>
                 {list(anchor)}
               </Drawer>
             </React.Fragment>
