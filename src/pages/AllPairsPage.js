@@ -13,6 +13,8 @@ import Search from '../components/Search'
 import MktList from '../components/MarketList'
 import { AutoColumn } from '../components/Column'
 import { useGlobalMarkets } from '../contexts/GlobalData'
+import { ThemedBackground } from '../Theme'
+import bgNoise from '../assets/bg-noise.gif'
 
 import { useMedia } from 'react-use'
 import QuestionHelper from '../components/QuestionHelper'
@@ -26,6 +28,31 @@ const Header = styled.div`
 
 const Medium = styled.span`
   font-weight: 500;
+`
+
+const StaticOverlay = styled.div`
+  -webkit-font-smoothing: antialiased;
+  /* text-shadow: 0 0 4px #ce540a,0 0 20px #ad0000; */
+  /* color: #f95200; */
+  /* font-family: otto,Arial,Helvetica,sans-serif; */
+  background-attachment: fixed;
+  background-repeat: repeat;
+  bottom: 0;
+  display: block;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  background-image: url(${bgNoise});
+  background-size: 170px;
+  mix-blend-mode: lighten;
+  opacity: 70%;
+  z-index: 600;
 `
 
 function AllPairsPage() {
@@ -55,6 +82,8 @@ function AllPairsPage() {
 
   return (
     <PageWrapper>
+      <StaticOverlay />
+      <ThemedBackground />
       <FullWrapper>
         <AutoColumn gap="14px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
           <TYPE.largeHeader>

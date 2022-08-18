@@ -32,7 +32,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { IconButton } from '@material-ui/core'
+import { Icon, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { useSessionStart } from '../contexts/Application'
 
@@ -154,6 +154,10 @@ function GlobalPage() {
   const seconds = useSessionStart()
   const history = useHistory()
 
+  const sideBarText = {
+    color: "red",
+  };
+
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
@@ -164,12 +168,12 @@ function GlobalPage() {
       <List>
         <ListItem key={"stableswap"} disablePadding>
           <ListItem button key={"stableswap"} onClick={() => history.push('/stableswap')}>
-            <ListItemText primary={"Stable Swap"} color="green" />
+            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={"> Stable Swap"} />
           </ListItem>
         </ListItem>
         <ListItem key={"lendingmarket"} disablePadding>
           <ListItem button key={"lendingmarket"} onClick={() => history.push('/lendingmarket')}>
-            <ListItemText primary={"Lending Market"} color="green" />
+            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={"> Lending Market"} color="green" />
           </ListItem>
         </ListItem>
       </List>
@@ -198,12 +202,14 @@ function GlobalPage() {
               <IconButton onClick={toggleDrawer(anchor, true)}>
                 <MenuIcon style={{ color: 'red' }} />
               </IconButton>
+              <img src="../assets/logo.svg" />
               <Drawer
                 classes={{ paper: classes.paper }}
                 anchor={anchor}
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
               >
+                <img src="../assets/logo.svg" />
                 {list(anchor)}
               </Drawer>
             </React.Fragment>
