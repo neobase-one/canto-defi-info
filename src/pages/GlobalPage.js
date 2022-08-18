@@ -8,7 +8,7 @@ import { AutoColumn } from '../components/Column'
 import PairList from '../components/PairList'
 import TopTokenList from '../components/TokenList'
 import TxnList from '../components/TxnList'
-import MktList from "../components/MarketList"
+import MktList from '../components/MarketList'
 import GlobalChart from '../components/GlobalChart'
 import Search from '../components/Search'
 import GlobalStats from '../components/GlobalStats'
@@ -174,7 +174,7 @@ function GlobalPage() {
           </Panel>
           <br />
           <AutoColumn gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }} />
-          <AutoColumn gap="14px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
+          {/* <AutoColumn gap="14px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
             <TYPE.largeHeader>{below800 ? 'LM Analytics' : 'Canto LM Analytics'}</TYPE.largeHeader>
           </AutoColumn>
           <span>
@@ -184,7 +184,7 @@ function GlobalPage() {
           </span>
           <Panel style={{ margin: '1rem 0' }}>
             <MktList markets={markets} />
-          </Panel>
+          </Panel> */}
         </div>
       </ContentWrapper>
     </PageWrapper>

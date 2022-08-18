@@ -119,19 +119,7 @@ function SideNav({ history }) {
                 <BasicLink to="/home">
                   <Option activeText={history.location.pathname === '/home' ?? undefined}>
                     <TrendingUp size={20} style={{ marginRight: '.75rem' }} />
-                    Overview
-                  </Option>
-                </BasicLink>
-                <BasicLink to="/tokens">
-                  <Option
-                    activeText={
-                      (history.location.pathname.split('/')[1] === 'tokens' ||
-                        history.location.pathname.split('/')[1] === 'token') ??
-                      undefined
-                    }
-                  >
-                    <Disc size={20} style={{ marginRight: '.75rem' }} />
-                    Tokens
+                    Stable Swap
                   </Option>
                 </BasicLink>
                 <BasicLink to="/pairs">
@@ -143,20 +131,7 @@ function SideNav({ history }) {
                     }
                   >
                     <PieChart size={20} style={{ marginRight: '.75rem' }} />
-                    Pairs
-                  </Option>
-                </BasicLink>
-
-                <BasicLink to="/accounts">
-                  <Option
-                    activeText={
-                      (history.location.pathname.split('/')[1] === 'accounts' ||
-                        history.location.pathname.split('/')[1] === 'account') ??
-                      undefined
-                    }
-                  >
-                    <List size={20} style={{ marginRight: '.75rem' }} />
-                    Accounts
+                    Lending Market
                   </Option>
                 </BasicLink>
               </AutoColumn>
