@@ -8,7 +8,6 @@ import { AutoColumn } from '../components/Column'
 import PairList from '../components/PairList'
 import TopTokenList from '../components/TokenList'
 import TxnList from '../components/TxnList'
-import MktList from '../components/MarketList'
 import GlobalChart from '../components/GlobalChart'
 import Search from '../components/Search'
 import GlobalStats from '../components/GlobalStats'
@@ -27,8 +26,13 @@ import bgNoise from '../assets/bg-noise.gif'
 import { PageWrapper, ContentWrapper } from '../components'
 import CheckBox from '../components/Checkbox'
 import QuestionHelper from '../components/QuestionHelper'
-import { GET_MARKETS } from '../apollo/queries'
-import { marketsClient } from '../apollo/client'
+import Drawer from '@material-ui/core/Drawer';
+import MenuIcon from '@material-ui/icons/Menu';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { IconButton } from '@material-ui/core'
 
 const StaticOverlay = styled.div`
   -webkit-font-smoothing: antialiased;
@@ -97,11 +101,68 @@ function GlobalPage() {
   // for tracked data on pairs
   const [useTracked, setUseTracked] = useState(true)
 
+  const [state, setState] = React.useState({
+    left: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
   return (
     <PageWrapper>
       <StaticOverlay />
       <ThemedBackground />
       <ContentWrapper>
+        <div>
+          {['left'].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <IconButton onClick={toggleDrawer(anchor, true)}>
+                <MenuIcon style={{ color: 'red' }} />
+              </IconButton>
+              <Drawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+              >
+                {list(anchor)}
+              </Drawer>
+            </React.Fragment>
+          ))}
+        </div>
         <div>
           <AutoColumn gap="14px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
             <TYPE.largeHeader>{below800 ? 'StableSwap Analytics' : 'Canto StableSwap Analytics'}</TYPE.largeHeader>
