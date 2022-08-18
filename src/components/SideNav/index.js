@@ -116,13 +116,13 @@ function SideNav({ history }) {
             <Title />
             {!below1080 && (
               <AutoColumn gap="1.25rem" style={{ marginTop: '1rem' }}>
-                <BasicLink to="/home">
-                  <Option activeText={history.location.pathname === '/home' ?? undefined}>
+                <BasicLink to="/stableswap">
+                  <Option activeText={history.location.pathname === '/stableswap' ?? undefined}>
                     <TrendingUp size={20} style={{ marginRight: '.75rem' }} />
                     Stable Swap
                   </Option>
                 </BasicLink>
-                <BasicLink to="/pairs">
+                <BasicLink to="/lendingmarket">
                   <Option
                     activeText={
                       (history.location.pathname.split('/')[1] === 'pairs' ||
