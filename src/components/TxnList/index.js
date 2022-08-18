@@ -151,7 +151,7 @@ const DashGrid = styled.div`
 
 const ClickableText = styled(Text)`
   user-select: none;
-  text-align: end;
+  text-align: center;
 
   &:hover {
     cursor: pointer;
@@ -346,7 +346,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
     return (
       <tr>
         <td area="txn" fontWeight="500">
-          <Link color={color} external href={urls.showTransaction(item.hash)}>
+          <Link color="#06fc99" external href={urls.showTransaction(item.hash)}>
             {getTransactionType(item.type, item.token1Symbol, item.token0Symbol)}
           </Link>
         </td>
@@ -366,7 +366,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         )}
         {!below1080 && (
           <td area="account">
-            <Link color={color} external href={'https://evm.explorer.canto.io/address/' + item.account}>
+            <Link color="#06fc99" external href={'https://evm.explorer.canto.io/address/' + item.account}>
               {item.account && item.account.slice(0, 6) + '...' + item.account.slice(38, 42)}
             </Link>
           </td>
@@ -476,8 +476,8 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
           {!filteredList ? (
             <tr>
               <td></td>
-              <td></td>
               <td>Loading...</td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>

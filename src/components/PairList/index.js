@@ -267,12 +267,13 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
             /> */}
           {/* <CustomLink style={{ marginLeft: '20px', whiteSpace: 'nowrap' }} to={'/pair/' + pairAddress} color={color}> */}
           <td>
-            <CustomLink>
+            <CustomLink color="#027733">
               <FormattedName
                 text={pairData.token0.symbol + '-' + pairData.token1.symbol}
                 maxCharacters={below600 ? 8 : 16}
                 adjustSize={true}
                 link={true}
+                color="#06fc99"
               />
             </CustomLink>
           </td>
