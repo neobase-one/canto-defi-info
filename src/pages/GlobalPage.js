@@ -174,17 +174,6 @@ function GlobalPage() {
           </Panel>
           <br />
           <AutoColumn gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }} />
-          {/* <AutoColumn gap="14px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
-            <TYPE.largeHeader>{below800 ? 'LM Analytics' : 'Canto LM Analytics'}</TYPE.largeHeader>
-          </AutoColumn>
-          <span>
-            <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '2rem' }}>
-              Markets
-            </TYPE.main>
-          </span>
-          <Panel style={{ margin: '1rem 0' }}>
-            <MktList markets={markets} />
-          </Panel> */}
         </div>
       </ContentWrapper>
     </PageWrapper>
