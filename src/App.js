@@ -119,9 +119,9 @@ function App() {
           </WarningWrapper>
         )}
         {globalData &&
-          Object.keys(globalData).length > 0 &&
-          globalChartData &&
-          Object.keys(globalChartData).length > 0 ? (
+        Object.keys(globalData).length > 0 &&
+        globalChartData &&
+        Object.keys(globalChartData).length > 0 ? (
           <BrowserRouter>
             <Route component={GoogleAnalyticsReporter} />
             <Switch>
@@ -140,7 +140,7 @@ function App() {
                       </LayoutWrapper>
                     )
                   } else {
-                    return <Redirect to="/home" />
+                    return <Redirect to="/stableswap" />
                   }
                 }}
               />
@@ -159,7 +159,7 @@ function App() {
                       </LayoutWrapper>
                     )
                   } else {
-                    return <Redirect to="/home" />
+                    return <Redirect to="/stableswap" />
                   }
                 }}
               />
@@ -175,12 +175,12 @@ function App() {
                       </LayoutWrapper>
                     )
                   } else {
-                    return <Redirect to="/home" />
+                    return <Redirect to="/stableswap" />
                   }
                 }}
               />
 
-              <Route path="/home">
+              <Route path="/stableswap">
                 <LayoutWrapper savedOpen={savedOpen} setSavedOpen={setSavedOpen}>
                   <GlobalPage />
                 </LayoutWrapper>
@@ -192,7 +192,7 @@ function App() {
                 </LayoutWrapper>
               </Route>
 
-              <Route path="/pairs">
+              <Route path="/lendingmarket">
                 <LayoutWrapper savedOpen={savedOpen} setSavedOpen={setSavedOpen}>
                   <AllPairsPage />
                 </LayoutWrapper>
@@ -204,7 +204,7 @@ function App() {
                 </LayoutWrapper>
               </Route>
 
-              <Redirect to="/home" />
+              <Redirect to="/stableswap" />
             </Switch>
           </BrowserRouter>
         ) : (

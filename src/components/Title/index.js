@@ -56,21 +56,10 @@ export default function Title() {
         </RowFixed>
         {below1080 && (
           <RowFixed style={{ alignItems: 'flex-end' }}>
-            <BasicLink to="/home">
-              <Option activeText={history.location.pathname === '/home' ?? undefined}>Stable Swap</Option>
+            <BasicLink to="/stableswap">
+              <Option activeText={history.location.pathname === '/stableswap' ?? undefined}>Stable Swap</Option>
             </BasicLink>
-            {/* <BasicLink to="/tokens">
-              <Option
-                activeText={
-                  (history.location.pathname.split('/')[1] === 'tokens' ||
-                    history.location.pathname.split('/')[1] === 'token') ??
-                  undefined
-                }
-              >
-                Tokens
-              </Option>
-            </BasicLink> */}
-            <BasicLink to="/pairs">
+            <BasicLink to="/lendingmarket">
               <Option
                 activeText={
                   (history.location.pathname.split('/')[1] === 'pairs' ||
@@ -81,18 +70,6 @@ export default function Title() {
                 Lending Market
               </Option>
             </BasicLink>
-
-            {/* <BasicLink to="/accounts">
-              <Option
-                activeText={
-                  (history.location.pathname.split('/')[1] === 'accounts' ||
-                    history.location.pathname.split('/')[1] === 'account') ??
-                  undefined
-                }
-              >
-                Accounts
-              </Option>
-            </BasicLink> */}
           </RowFixed>
         )}
       </Flex>

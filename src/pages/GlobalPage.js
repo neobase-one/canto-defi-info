@@ -157,7 +157,7 @@ function GlobalPage() {
                   text={'Hide untracked pairs'}
                 />
                 <QuestionHelper text="USD amounts may be inaccurate in low liquiidty pairs or pairs without CANTO or stablecoins." />
-                <CustomLink to={'/pairs'}>See All</CustomLink>
+                <CustomLink to={'/lendingmarket'}>See All</CustomLink>
               </AutoRow>
             </RowBetween>
           </ListOptions>
