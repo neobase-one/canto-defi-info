@@ -184,10 +184,13 @@ function AllPairsPage() {
         <div>
           {['left'].map((anchor) => (
             <React.Fragment key={anchor}>
-              <IconButton onClick={toggleDrawer(anchor, true)}>
-                <MenuIcon style={{ color: 'red' }} />
-              </IconButton>
-              <img src="../assets/logo.svg" />
+              <div style={{ display: "flex" }}>
+                <IconButton onClick={toggleDrawer(anchor, true)}>
+                  <MenuIcon style={{ color: '#06fc99' }} />
+                </IconButton>
+                <img src={Logo} />
+                {/* <div style={{ color: "#06fc99" }}>Canto</div> */}
+              </div>
               <Drawer
                 classes={{ paper: classes.paper }}
                 anchor={anchor}
