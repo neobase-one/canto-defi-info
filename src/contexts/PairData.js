@@ -289,7 +289,7 @@ function parseData(data, oneDayData, twoDayData, oneWeekData, cantoPrice, oneDay
   data.volumeChangeUntracked = volumeChangeUntracked
 
   // set liquidity properties
-  data.trackedReserveUSD = data.trackedReserveCANTO * cantoPrice
+  data.trackedReserveUSD = data.trackedReserveNOTE * cantoPrice
   data.liquidityChangeUSD = getPercentChange(data.reserveUSD, oneDayData?.reserveUSD)
 
   // format if pair hasnt existed for a day or a week
@@ -443,7 +443,7 @@ const getHourlyRateData = async (pairAddress, startTime, latestBlock) => {
 
     const result = await splitQuery(HOURLY_PAIR_RATES, client, [pairAddress], blocks, 100)
 
-    // format token CANTO price results
+    // format token NOTE price results
     let values = []
     for (var row in result) {
       let timestamp = row.split('t')[1]

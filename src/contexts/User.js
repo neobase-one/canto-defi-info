@@ -258,7 +258,7 @@ export function useUserPositionChart(position, account) {
 
   // get data needed for calculations
   const currentPairData = usePairData(pairAddress)
-  const [currentCANTOPrice] = useEthPrice()
+  const [currentNOTEPrice] = useEthPrice()
 
   // formatetd array to return for chart data
   const formattedHistory = state?.[account]?.[USER_PAIR_RETURNS_KEY]?.[pairAddress]
@@ -269,7 +269,7 @@ export function useUserPositionChart(position, account) {
         startDateTimestamp,
         currentPairData,
         pairSnapshots,
-        currentCANTOPrice
+        currentNOTEPrice
       )
       updateUserPairReturns(account, pairAddress, fetchedData)
     }
@@ -281,7 +281,7 @@ export function useUserPositionChart(position, account) {
       currentPairData &&
       Object.keys(currentPairData).length > 0 &&
       pairAddress &&
-      currentCANTOPrice
+      currentNOTEPrice
     ) {
       fetchData()
     }
@@ -292,7 +292,7 @@ export function useUserPositionChart(position, account) {
     formattedHistory,
     pairAddress,
     currentPairData,
-    currentCANTOPrice,
+    currentNOTEPrice,
     updateUserPairReturns,
     position.pair.id,
   ])

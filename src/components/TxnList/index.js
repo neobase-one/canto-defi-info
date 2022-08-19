@@ -351,7 +351,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
           </CustomLink>
         </td>
         <td area="value">
-          {currency === 'CANTO' ? 'Ⓒ ' + formattedNum(item.valueCANTO) : formattedNum(item.amountUSD, true)}
+          {currency === 'NOTE' ? 'Ꞥ ' + formattedNum(item.valueNOTE) : formattedNum(item.amountUSD, true)}
         </td>
         {!below780 && (
           <>

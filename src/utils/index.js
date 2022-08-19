@@ -43,13 +43,13 @@ export function getPoolLink(token0Address, token1Address = null, remove = false)
     return (
       `https://app.uniswap.org/#/` +
       (remove ? `remove` : `add`) +
-      `/v2/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'CANTO' : token0Address}/${'CANTO'}`
+      `/v2/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'NOTE' : token0Address}/${'NOTE'}`
     )
   } else {
     return (
       `https://app.uniswap.org/#/` +
       (remove ? `remove` : `add`) +
-      `/v2/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'CANTO' : token0Address}/${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'CANTO' : token1Address
+      `/v2/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'NOTE' : token0Address}/${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'NOTE' : token1Address
       }`
     )
   }
@@ -59,13 +59,13 @@ export function getSwapLink(token0Address, token1Address = null) {
   if (!token1Address) {
     return `https://app.uniswap.org/#/swap?inputCurrency=${token0Address}`
   } else {
-    return `https://app.uniswap.org/#/swap?inputCurrency=${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'CANTO' : token0Address
-      }&outputCurrency=${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'CANTO' : token1Address}`
+    return `https://app.uniswap.org/#/swap?inputCurrency=${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'NOTE' : token0Address
+      }&outputCurrency=${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'NOTE' : token1Address}`
   }
 }
 
 export function getMiningPoolLink(token0Address) {
-  return `https://app.uniswap.org/#/uni/CANTO/${token0Address}`
+  return `https://app.uniswap.org/#/uni/NOTE/${token0Address}`
 }
 
 export function getUniswapAppLink(linkVariable) {
@@ -74,7 +74,7 @@ export function getUniswapAppLink(linkVariable) {
     return baseUniswapUrl
   }
 
-  return `${baseUniswapUrl}/CANTO/${linkVariable}`
+  return `${baseUniswapUrl}/NOTE/${linkVariable}`
 }
 
 export function localNumber(val) {
@@ -238,8 +238,8 @@ export async function getShareValueOverTime(pairAddress, timestamps) {
         reserve0: result.data[row].reserve0,
         reserve1: result.data[row].reserve1,
         reserveUSD: result.data[row].reserveUSD,
-        token0DerivedCANTO: result.data[row].token0.derivedCANTO,
-        token1DerivedCANTO: result.data[row].token1.derivedCANTO,
+        token0DerivedNOTE: result.data[row].token0.derivedNOTE,
+        token1DerivedNOTE: result.data[row].token1.derivedNOTE,
         roiUsd: values && values[0] ? sharePriceUsd / values[0]['sharePriceUsd'] : 1,
         cantoPrice: 0,
         token0PriceUSD: 0,
@@ -254,8 +254,8 @@ export async function getShareValueOverTime(pairAddress, timestamps) {
     let timestamp = brow.split('b')[1]
     if (timestamp) {
       values[index].cantoPrice = result.data[brow].cantoPrice
-      values[index].token0PriceUSD = result.data[brow].cantoPrice * values[index].token0DerivedCANTO
-      values[index].token1PriceUSD = result.data[brow].cantoPrice * values[index].token1DerivedCANTO
+      values[index].token0PriceUSD = result.data[brow].cantoPrice * values[index].token0DerivedNOTE
+      values[index].token1PriceUSD = result.data[brow].cantoPrice * values[index].token1DerivedNOTE
       index += 1
     }
   }
