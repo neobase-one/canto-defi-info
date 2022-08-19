@@ -67,7 +67,7 @@ export default function Title() {
                   undefined
                 }
               >
-                Lending Market
+                lending market
               </Option>
             </BasicLink>
           </RowFixed>

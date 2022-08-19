@@ -131,7 +131,7 @@ function SideNav({ history }) {
                     }
                   >
                     <PieChart size={20} style={{ marginRight: '.75rem' }} />
-                    Lending Market
+                    lending market
                   </Option>
                 </BasicLink>
               </AutoColumn>
