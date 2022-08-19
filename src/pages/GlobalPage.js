@@ -170,7 +170,7 @@ function GlobalPage() {
       <List>
         <ListItem key={"stableswap"} disablePadding>
           <ListItem button key={"stableswap"} onClick={() => history.push('/stableswap')}>
-            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={"> Stable Swap"} />
+            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={"> stable swap"} />
           </ListItem>
         </ListItem>
         <ListItem key={"lendingmarket"} disablePadding>
@@ -225,7 +225,7 @@ function GlobalPage() {
         </div>
         <div>
           <AutoColumn gap="14px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
-            <TYPE.largeHeader>{below800 ? 'StableSwap Analytics' : 'Canto StableSwap Analytics'}</TYPE.largeHeader>
+            <TYPE.largeHeader>{below800 ? 'stableswap Analytics' : 'canto stableswap analytics'}</TYPE.largeHeader>
             {/* <Search /> */}
             <GlobalStats />
           </AutoColumn>
@@ -236,7 +236,7 @@ function GlobalPage() {
                   <AutoColumn gap="36px">
                     <AutoColumn gap="20px">
                       <RowBetween>
-                        <TYPE.main>Volume (24hrs)</TYPE.main>
+                        <TYPE.main>volume (24hrs)</TYPE.main>
                         <div />
                       </RowBetween>
                       <RowBetween align="flex-end">
@@ -248,7 +248,7 @@ function GlobalPage() {
                     </AutoColumn>
                     <AutoColumn gap="20px">
                       <RowBetween>
-                        <TYPE.main>Total Liquidity</TYPE.main>
+                        <TYPE.main>total liquidity</TYPE.main>
                         <div />
                       </RowBetween>
                       <RowBetween align="flex-end">
@@ -285,10 +285,10 @@ function GlobalPage() {
           <ListOptions gap="10px" style={{ marginTop: '2rem', marginBottom: '.5rem' }}>
             <RowBetween>
               <TYPE.main fontSize={'1.125rem'} style={{ whiteSpace: 'nowrap' }}>
-                Top Tokens
+                top tokens
               </TYPE.main>
               <CustomLink to={'/tokens'} color="#06fc99">
-                See All
+                see all
               </CustomLink>
             </RowBetween>
           </ListOptions>
@@ -298,17 +298,17 @@ function GlobalPage() {
           <ListOptions gap="10px" style={{ marginTop: '2rem', marginBottom: '.5rem' }}>
             <RowBetween>
               <TYPE.main fontSize={'1rem'} style={{ whiteSpace: 'nowrap' }}>
-                Top Pairs
+                top pairs
               </TYPE.main>
               <AutoRow gap="4px" width="100%" justifyContent="flex-end">
                 <CheckBox
                   checked={useTracked}
                   setChecked={() => setUseTracked(!useTracked)}
-                  text={'Hide untracked pairs'}
+                  text={'hide untracked pairs'}
                 />
                 <QuestionHelper text="USD amounts may be inaccurate in low liquiidty pairs or pairs without CANTO or stablecoins." />
                 <CustomLink to={'/lendingmarket'} color="#06fc99">
-                  See All
+                  see all
                 </CustomLink>
               </AutoRow>
             </RowBetween>
@@ -318,7 +318,7 @@ function GlobalPage() {
           </Panel>
           <span>
             <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '2rem' }}>
-              Transactions
+              transactions
             </TYPE.main>
           </span>
           <Panel style={{ margin: '1rem 0' }}>

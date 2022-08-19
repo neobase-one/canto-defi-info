@@ -153,7 +153,7 @@ function AllPairsPage() {
       <List>
         <ListItem key={"stableswap"} disablePadding>
           <ListItem button key={"stableswap"} onClick={() => history.push('/stableswap')}>
-            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={"> Stable Swap"} />
+            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={"> stable swap"} />
           </ListItem>
         </ListItem>
         <ListItem key={"lendingmarket"} disablePadding>
@@ -215,12 +215,12 @@ function AllPairsPage() {
               <RowFixed>
                 {!below1180 && (
                   <TYPE.main mr={'1rem'}>
-                    Total supply: <Medium>{formattedNum(totalSupply, true)}</Medium>
+                    total supply: <Medium>{formattedNum(totalSupply, true)}</Medium>
                   </TYPE.main>
                 )}
                 {!below1024 && (
                   <TYPE.main mr={'1rem'}>
-                    Total Borrow: <Medium>{formattedNum(totalBorrow, true)}</Medium>
+                    total borrow: <Medium>{formattedNum(totalBorrow, true)}</Medium>
                   </TYPE.main>
                 )}
               </RowFixed>
@@ -233,7 +233,7 @@ function AllPairsPage() {
           </TYPE.main>
         </span> */}
         <span>
-          <TYPE.main fontSize={'1.125rem'}>Markets</TYPE.main>
+          <TYPE.main fontSize={'1.125rem'}>markets</TYPE.main>
         </span>
         <Panel style={{ margin: '1rem 0' }}>
           <MktList markets={markets} />

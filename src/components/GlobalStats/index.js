@@ -47,24 +47,24 @@ export default function GlobalStats() {
               }}
               style={{ position: 'relative' }}
             >
-              CANTO Price: <Medium>{formattedEthPrice}</Medium>
+              CANTO price: <Medium>{formattedEthPrice}</Medium>
               {showPriceCard && <UniPrice />}
             </TYPE.main>
           )}
 
           {!below1180 && (
             <TYPE.main mr={'1rem'}>
-              Transactions (24H): <Medium>{localNumber(oneDayTxns)}</Medium>
+              transactions (24h): <Medium>{localNumber(oneDayTxns)}</Medium>
             </TYPE.main>
           )}
           {!below1024 && (
             <TYPE.main mr={'1rem'}>
-              Pairs: <Medium>{localNumber(pairCount)}</Medium>
+              pairs: <Medium>{localNumber(pairCount)}</Medium>
             </TYPE.main>
           )}
           {!below1295 && (
             <TYPE.main mr={'1rem'}>
-              Fees (24H): <Medium>{oneDayFees || 0}</Medium>&nbsp;
+              fees (24h): <Medium>{oneDayFees || 0}</Medium>&nbsp;
             </TYPE.main>
           )}
         </RowFixed>

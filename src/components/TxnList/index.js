@@ -200,10 +200,10 @@ const SORT_FIELD = {
 }
 
 const TXN_TYPE = {
-  ALL: 'All',
-  SWAP: 'Swaps',
-  ADD: 'Adds',
-  REMOVE: 'Removes',
+  ALL: 'all',
+  SWAP: 'swaps',
+  ADD: 'adds',
+  REMOVE: 'removes',
 }
 
 const ITEMS_PER_PAGE = 10
@@ -213,11 +213,11 @@ function getTransactionType(event, symbol0, symbol1) {
   const formattedS1 = symbol1?.length > 8 ? symbol1.slice(0, 7) + '...' : symbol1
   switch (event) {
     case TXN_TYPE.ADD:
-      return 'Add ' + formattedS0 + ' and ' + formattedS1
+      return 'add ' + formattedS0 + ' and ' + formattedS1
     case TXN_TYPE.REMOVE:
-      return 'Remove ' + formattedS0 + ' and ' + formattedS1
+      return 'remove ' + formattedS0 + ' and ' + formattedS1
     case TXN_TYPE.SWAP:
-      return 'Swap ' + formattedS0 + ' for ' + formattedS1
+      return 'swap ' + formattedS0 + ' for ' + formattedS1
     default:
       return ''
   }

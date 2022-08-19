@@ -119,7 +119,7 @@ function SideNav({ history }) {
                 <BasicLink to="/stableswap">
                   <Option activeText={history.location.pathname === '/stableswap' ?? undefined}>
                     <TrendingUp size={20} style={{ marginRight: '.75rem' }} />
-                    Stable Swap
+                    stable swap
                   </Option>
                 </BasicLink>
                 <BasicLink to="/lendingmarket">

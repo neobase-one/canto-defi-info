@@ -94,7 +94,7 @@ const GlobalChart = ({ display }) => {
             data={dailyData}
             base={totalLiquidityUSD}
             baseChange={liquidityChangeUSD}
-            title="Liquidity"
+            title="liquidity"
             field="totalLiquidityUSD"
             width={width}
             type={CHART_TYPES.AREA}
@@ -107,7 +107,7 @@ const GlobalChart = ({ display }) => {
             data={chartDataFiltered}
             base={volumeWindow === VOLUME_WINDOW.WEEKLY ? oneWeekVolume : oneDayVolumeUSD}
             baseChange={volumeWindow === VOLUME_WINDOW.WEEKLY ? weeklyVolumeChange : volumeChangeUSD}
-            title={volumeWindow === VOLUME_WINDOW.WEEKLY ? 'Volume (7d)' : 'Volume'}
+            title={volumeWindow === VOLUME_WINDOW.WEEKLY ? 'volume (7d)' : 'volume'}
             field={volumeWindow === VOLUME_WINDOW.WEEKLY ? 'weeklyVolumeUSD' : 'dailyVolumeUSD'}
             width={width}
             type={CHART_TYPES.BAR}
