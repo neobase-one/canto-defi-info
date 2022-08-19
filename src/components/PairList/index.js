@@ -19,6 +19,69 @@ import { AutoColumn } from '../Column'
 
 dayjs.extend(utc)
 
+const Table = styled.table`
+  border: none;
+  border: #06fc99 solid 1px;
+  box-shadow: 0px 0px 10px #94ffb241;
+  margin: 5px auto;
+  color: #06fc99;
+  width: calc(100% - 10px);
+  text-align: center;
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-shadow: none;
+  thead {
+    text-transform: lowercase;
+    font-size: 14px;
+    background-color: #06fc9a1b;
+  }
+
+  th {
+    padding: 8px;
+    font-weight: 400;
+    line-height: 1rem;
+  }
+
+  tr {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 4rem;
+    background-color: black;
+    border-bottom: #06fc99 solid 1px;
+  }
+  td:first-child,
+  th:first-child {
+    padding-left: 2rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-transform: uppercase;
+  }
+  th:first-child {
+    text-transform: lowercase;
+  }
+  img {
+    height: 30px;
+    /* width: 30px; */
+    /* border-radius: 50%; */
+    /* border: 1px solid #06fc99; */
+    /* background-color: #cecece; */
+  }
+  tbody {
+    border: #06fc99 solid 1px;
+
+    tr:hover {
+      background-color: #14392a;
+      cursor: pointer;
+    }
+  }
+  @media (max-width: 1000px) {
+    width: 800px;
+    margin: 0 2rem;
+  }
+`
+
 const PageButtons = styled.div`
   width: 100%;
   display: flex;
@@ -28,7 +91,7 @@ const PageButtons = styled.div`
 `
 
 const Arrow = styled.div`
-  color: ${({ theme }) => theme.primary1};
+  color: rgb(238, 75, 43);
   opacity: ${(props) => (props.faded ? 0.3 : 1)};
   padding: 0 20px;
   user-select: none;
@@ -81,12 +144,11 @@ const DashGrid = styled.div`
 const ListWrapper = styled.div``
 
 const ClickableText = styled(Text)`
-  color: ${({ theme }) => theme.text1};
   &:hover {
     cursor: pointer;
     opacity: 0.6;
   }
-  text-align: end;
+  text-align: center;
   user-select: none;
 `
 
@@ -130,12 +192,9 @@ const FIELD_TO_VALUE = (field, useTracked) => {
 const formatDataText = (value, trackedValue, supressWarning = false) => {
   const showUntracked = value !== '$0' && !trackedValue & !supressWarning
   return (
-    <AutoColumn gap="2px" style={{ opacity: showUntracked ? '0.7' : '1' }}>
-      <div style={{ textAlign: 'right' }}>{value}</div>
-      <TYPE.light fontSize={'9px'} style={{ textAlign: 'right' }}>
-        {showUntracked ? 'untracked' : '  '}
-      </TYPE.light>
-    </AutoColumn>
+    <>
+      <div style={{ textAlign: 'center' }}>{value}</div>
+    </>
   )
 }
 
@@ -184,7 +243,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
 
       const apy = formattedPercent(
         ((pairData.oneDayVolumeUSD ? pairData.oneDayVolumeUSD : pairData.oneDayVolumeUntracked) * 0.003 * 365 * 100) /
-        (pairData.oneDayVolumeUSD ? pairData.trackedReserveUSD : pairData.reserveUSD)
+          (pairData.oneDayVolumeUSD ? pairData.trackedReserveUSD : pairData.reserveUSD)
       )
 
       const weekVolume = formattedNum(
@@ -198,35 +257,34 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
       )
 
       return (
-        <DashGrid style={{ height: '48px' }} disbaleLinks={disbaleLinks} focus={true}>
-          <DataText area="name" fontWeight="500">
-            {!below600 && <div style={{ marginRight: '20px', width: '10px' }}>{index}</div>}
-            {/* <DoubleTokenLogo
+        <tr>
+          {!below600 && <td>{index}</td>}
+          {/* <DoubleTokenLogo
               size={below600 ? 16 : 20}
               a0={pairData.token0.id}
               a1={pairData.token1.id}
               margin={!below740}
             /> */}
-            {/* <CustomLink style={{ marginLeft: '20px', whiteSpace: 'nowrap' }} to={'/pair/' + pairAddress} color={color}> */}
-            <CustomLink style={{ marginLeft: '20px', whiteSpace: 'nowrap' }} color={color}>
+          {/* <CustomLink style={{ marginLeft: '20px', whiteSpace: 'nowrap' }} to={'/pair/' + pairAddress} color={color}> */}
+          <td>
+            <CustomLink color="#027733">
               <FormattedName
                 text={pairData.token0.symbol + '-' + pairData.token1.symbol}
                 maxCharacters={below600 ? 8 : 16}
                 adjustSize={true}
                 link={true}
+                color="#06fc99"
               />
             </CustomLink>
-          </DataText>
-          <DataText area="liq">{formatDataText(liquidity, pairData.trackedReserveUSD)}</DataText>
-          <DataText area="vol">{formatDataText(volume, pairData.oneDayVolumeUSD)}</DataText>
-          {!below1080 && <DataText area="volWeek">{formatDataText(weekVolume, pairData.oneWeekVolumeUSD)}</DataText>}
-          {!below1080 && <DataText area="fees">{formatDataText(fees, pairData.oneDayVolumeUSD)}</DataText>}
+          </td>
+          <td area="liq">{formatDataText(liquidity, pairData.trackedReserveUSD)}</td>
+          <td area="vol">{formatDataText(volume, pairData.oneDayVolumeUSD)}</td>
+          {!below1080 && <td area="volWeek">{formatDataText(weekVolume, pairData.oneWeekVolumeUSD)}</td>}
+          {!below1080 && <td area="fees">{formatDataText(fees, pairData.oneDayVolumeUSD)}</td>}
           {!below1080 && (
-            <DataText area="apy">
-              {formatDataText(apy, pairData.oneDayVolumeUSD, pairData.oneDayVolumeUSD === 0)}
-            </DataText>
+            <td area="apy">{formatDataText(apy, pairData.oneDayVolumeUSD, pairData.oneDayVolumeUSD === 0)}</td>
           )}
-        </DashGrid>
+        </tr>
       )
     } else {
       return ''
@@ -256,90 +314,83 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10, useTracked = fals
       .map((pairAddress, index) => {
         return (
           pairAddress && (
-            <div key={index}>
-              <ListItem key={index} index={(page - 1) * ITEMS_PER_PAGE + index + 1} pairAddress={pairAddress} />
-              <Divider />
-            </div>
+            <ListItem key={index} index={(page - 1) * ITEMS_PER_PAGE + index + 1} pairAddress={pairAddress} />
           )
         )
       })
 
   return (
     <ListWrapper>
-      <DashGrid
-        center={true}
-        disbaleLinks={disbaleLinks}
-        style={{ height: 'fit-content', padding: '0 1.125rem 1rem 1.125rem' }}
-      >
-        <Flex alignItems="center" justifyContent="flexStart">
-          <TYPE.main area="name">Name</TYPE.main>
-        </Flex>
-        <Flex alignItems="center" justifyContent="flexEnd">
-          <ClickableText
-            area="liq"
-            onClick={(e) => {
-              setSortedColumn(SORT_FIELD.LIQ)
-              setSortDirection(sortedColumn !== SORT_FIELD.LIQ ? true : !sortDirection)
-            }}
-          >
-            Liquidity {sortedColumn === SORT_FIELD.LIQ ? (!sortDirection ? '↑' : '↓') : ''}
-          </ClickableText>
-        </Flex>
-        <Flex alignItems="center">
-          <ClickableText
-            area="vol"
-            onClick={(e) => {
-              setSortedColumn(SORT_FIELD.VOL)
-              setSortDirection(sortedColumn !== SORT_FIELD.VOL ? true : !sortDirection)
-            }}
-          >
-            Volume (24hrs)
-            {sortedColumn === SORT_FIELD.VOL ? (!sortDirection ? '↑' : '↓') : ''}
-          </ClickableText>
-        </Flex>
-        {!below1080 && (
-          <Flex alignItems="center" justifyContent="flexEnd">
+      <Table>
+        <thead>
+          {!below600 && <th></th>}
+          <th>Name</th>
+          <th>
             <ClickableText
-              area="volWeek"
+              area="liq"
               onClick={(e) => {
-                setSortedColumn(SORT_FIELD.VOL_7DAYS)
-                setSortDirection(sortedColumn !== SORT_FIELD.VOL_7DAYS ? true : !sortDirection)
+                setSortedColumn(SORT_FIELD.LIQ)
+                setSortDirection(sortedColumn !== SORT_FIELD.LIQ ? true : !sortDirection)
               }}
             >
-              Volume (7d) {sortedColumn === SORT_FIELD.VOL_7DAYS ? (!sortDirection ? '↑' : '↓') : ''}
+              Liquidity {sortedColumn === SORT_FIELD.LIQ ? (!sortDirection ? '↑' : '↓') : ''}
             </ClickableText>
-          </Flex>
-        )}
-        {!below1080 && (
-          <Flex alignItems="center" justifyContent="flexEnd">
+          </th>
+          <th>
             <ClickableText
-              area="fees"
+              area="vol"
               onClick={(e) => {
-                setSortedColumn(SORT_FIELD.FEES)
-                setSortDirection(sortedColumn !== SORT_FIELD.FEES ? true : !sortDirection)
+                setSortedColumn(SORT_FIELD.VOL)
+                setSortDirection(sortedColumn !== SORT_FIELD.VOL ? true : !sortDirection)
               }}
             >
-              Fees (24hr) {sortedColumn === SORT_FIELD.FEES ? (!sortDirection ? '↑' : '↓') : ''}
+              Volume (24hrs)
+              {sortedColumn === SORT_FIELD.VOL ? (!sortDirection ? '↑' : '↓') : ''}
             </ClickableText>
-          </Flex>
-        )}
-        {!below1080 && (
-          <Flex alignItems="center" justifyContent="flexEnd">
-            <ClickableText
-              area="apy"
-              onClick={(e) => {
-                setSortedColumn(SORT_FIELD.APY)
-                setSortDirection(sortedColumn !== SORT_FIELD.APY ? true : !sortDirection)
-              }}
-            >
-              1y Fees / Liquidity {sortedColumn === SORT_FIELD.APY ? (!sortDirection ? '↑' : '↓') : ''}
-            </ClickableText>
-            <QuestionHelper text={'Based on 24hr volume annualized'} />
-          </Flex>
-        )}
-      </DashGrid>
-      <Divider />
-      <List p={0}>{!pairList ? <LocalLoader /> : pairList}</List>
+          </th>
+          {!below1080 && (
+            <th>
+              <ClickableText
+                area="volWeek"
+                onClick={(e) => {
+                  setSortedColumn(SORT_FIELD.VOL_7DAYS)
+                  setSortDirection(sortedColumn !== SORT_FIELD.VOL_7DAYS ? true : !sortDirection)
+                }}
+              >
+                Volume (7d) {sortedColumn === SORT_FIELD.VOL_7DAYS ? (!sortDirection ? '↑' : '↓') : ''}
+              </ClickableText>
+            </th>
+          )}
+          {!below1080 && (
+            <th>
+              <ClickableText
+                area="fees"
+                onClick={(e) => {
+                  setSortedColumn(SORT_FIELD.FEES)
+                  setSortDirection(sortedColumn !== SORT_FIELD.FEES ? true : !sortDirection)
+                }}
+              >
+                Fees (24hr) {sortedColumn === SORT_FIELD.FEES ? (!sortDirection ? '↑' : '↓') : ''}
+              </ClickableText>
+            </th>
+          )}
+          {!below1080 && (
+            <th>
+              <ClickableText
+                area="apy"
+                onClick={(e) => {
+                  setSortedColumn(SORT_FIELD.APY)
+                  setSortDirection(sortedColumn !== SORT_FIELD.APY ? true : !sortDirection)
+                }}
+              >
+                1y Fees / Liquidity {sortedColumn === SORT_FIELD.APY ? (!sortDirection ? '↑' : '↓') : ''}
+              </ClickableText>
+              <QuestionHelper text={'Based on 24hr volume annualized'} />
+            </th>
+          )}
+        </thead>
+        <tbody>{!pairList ? <LocalLoader /> : pairList}</tbody>
+      </Table>
       <PageButtons>
         <div
           onClick={(e) => {

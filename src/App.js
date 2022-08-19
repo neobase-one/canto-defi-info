@@ -11,7 +11,6 @@ import { isAddress } from './utils'
 import AccountPage from './pages/AccountPage'
 import AllTokensPage from './pages/AllTokensPage'
 import AllPairsPage from './pages/AllPairsPage'
-import PinnedData from './components/PinnedData'
 
 import SideNav from './components/SideNav'
 import AccountLookup from './pages/AccountLookup'
@@ -26,7 +25,7 @@ const AppWrapper = styled.div`
 `
 const ContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: ${({ open }) => (open ? '220px 1fr 200px' : '220px 1fr 64px')};
+  grid-template-columns: ${({ open }) => (open ? '220px 1fr' : '220px 1fr')};
 
   @media screen and (max-width: 1400px) {
     grid-template-columns: 220px 1fr;
@@ -81,15 +80,7 @@ const WarningBanner = styled.div`
  */
 const LayoutWrapper = ({ children, savedOpen, setSavedOpen }) => {
   return (
-    <>
-      <ContentWrapper open={savedOpen}>
-        <SideNav />
-        <Center id="center">{children}</Center>
-        <Right open={savedOpen}>
-          <PinnedData open={savedOpen} setSavedOpen={setSavedOpen} />
-        </Right>
-      </ContentWrapper>
-    </>
+    <Center id="center">{children}</Center>
   )
 }
 
@@ -119,9 +110,9 @@ function App() {
           </WarningWrapper>
         )}
         {globalData &&
-        Object.keys(globalData).length > 0 &&
-        globalChartData &&
-        Object.keys(globalChartData).length > 0 ? (
+          Object.keys(globalData).length > 0 &&
+          globalChartData &&
+          Object.keys(globalChartData).length > 0 ? (
           <BrowserRouter>
             <Route component={GoogleAnalyticsReporter} />
             <Switch>

@@ -54,7 +54,7 @@ const TradingViewChart = ({
   // parese the data and format for tardingview consumption
   const formattedData = data?.map((entry) => {
     console.log(entry)
-    console.log("base:", base)
+    console.log('base:', base)
     return {
       time: dayjs.unix(entry.date).utc().format('YYYY-MM-DD'),
       value: parseFloat(entry[field]),
@@ -66,7 +66,7 @@ const TradingViewChart = ({
   const topScale = type === CHART_TYPES.AREA ? 0.32 : 0.2
 
   const [darkMode] = useDarkModeManager()
-  const textColor = darkMode ? 'white' : 'black'
+  const textColor = "#06fc99"
   const previousTheme = usePrevious(darkMode)
 
   // reset the chart if them switches
@@ -132,7 +132,7 @@ const TradingViewChart = ({
       var series =
         type === CHART_TYPES.BAR
           ? chart.addHistogramSeries({
-            color: '#ff007a',
+            color: '#06fc99',
             priceFormat: {
               type: 'volume',
             },
@@ -140,13 +140,13 @@ const TradingViewChart = ({
               top: 0.32,
               bottom: 0,
             },
-            lineColor: '#ff007a',
+            lineColor: '#06fc99',
             lineWidth: 3,
           })
           : chart.addAreaSeries({
-            topColor: '#ff007a',
-            bottomColor: 'rgba(255, 0, 122, 0)',
-            lineColor: '#ff007a',
+            topColor: '#06fc99',
+            bottomColor: 'rgba(0, 255, 122, 0)',
+            lineColor: '#06fc99',
             lineWidth: 3,
           })
 
@@ -163,8 +163,8 @@ const TradingViewChart = ({
 
       // format numbers
       let percentChange = baseChange?.toFixed(2)
-      let formattedPercentChange = (percentChange > 0 ? '+' : '') + (percentChange ? (percentChange + '%') : "N/A")
-      let color = percentChange >= 0 ? 'green' : 'red'
+      let formattedPercentChange = (percentChange > 0 ? '+' : '') + (percentChange ? percentChange + '%' : 'N/A')
+      let color = percentChange < 0 ? 'red' : 'green'
 
       // get the title of the chart
       function setLastBarText() {
@@ -206,9 +206,7 @@ const TradingViewChart = ({
             `<div style="font-size: 22px; margin: 4px 0px; color: ${textColor}">` +
             formattedNum(price, true) +
             '</div>' +
-            '<div>' +
-            dateStr +
-            '</div>'
+            `<div style="font-size: 16px; margin: 4px 0px; color: #82fdcc;">${dateStr}</div>`
         }
       })
 

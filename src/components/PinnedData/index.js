@@ -148,4 +148,4 @@ function PinnedData({ history, open, setSavedOpen }) {
   )
 }
 
-export default withRouter(PinnedData)
+// export default withRouter(PinnedData)

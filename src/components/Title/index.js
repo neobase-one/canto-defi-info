@@ -57,7 +57,7 @@ export default function Title() {
         {below1080 && (
           <RowFixed style={{ alignItems: 'flex-end' }}>
             <BasicLink to="/stableswap">
-              <Option activeText={history.location.pathname === '/stableswap' ?? undefined}>Stable Swap</Option>
+              <Option activeText={history.location.pathname === '/stableswap' ?? undefined}>stable swap</Option>
             </BasicLink>
             <BasicLink to="/lendingmarket">
               <Option
