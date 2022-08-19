@@ -335,7 +335,7 @@ export const formatDollarAmount = (num, digits) => {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   })
-  return formatter.format(num)
+  return formatter.format(num).replace("$", "Ꞥ");
 }
 
 export const toSignificant = (number, significantDigits) => {
@@ -346,23 +346,23 @@ export const toSignificant = (number, significantDigits) => {
 
 export const formattedNum = (number, usd = false, acceptNegatives = false) => {
   if (isNaN(number) || number === '' || number === undefined) {
-    return usd ? '$0' : 0
+    return usd ? 'Ꞥ0' : 0
   }
   let num = parseFloat(number)
 
   if (num > 500000000) {
-    return (usd ? '$' : '') + toK(num.toFixed(0), true)
+    return (usd ? 'Ꞥ' : '') + toK(num.toFixed(0), true)
   }
 
   if (num === 0) {
     if (usd) {
-      return '$0'
+      return 'Ꞥ0'
     }
     return 0
   }
 
   if (num < 0.0001 && num > 0) {
-    return usd ? '< $0.0001' : '< 0.0001'
+    return usd ? '< Ꞥ0.0001' : '< 0.0001'
   }
 
   if (num > 1000) {
