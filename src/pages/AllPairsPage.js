@@ -208,7 +208,7 @@ function AllPairsPage() {
         </div>
         <AutoColumn gap="14px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
           <TYPE.largeHeader>
-            {below800 ? 'Lending Market Analytics' : 'Canto Lending Market Analytics'}
+            {below800 ? 'lending market analytics' : 'canto lending market analytics'}
           </TYPE.largeHeader>
           <Header>
             <RowBetween style={{ padding: below816 ? '0.5rem' : '.5rem' }}>

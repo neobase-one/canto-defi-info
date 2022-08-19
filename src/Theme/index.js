@@ -81,31 +81,31 @@ const TextWrapper = styled(Text)`
 
 export const TYPE = {
   main(props) {
-    return <TextWrapper fontWeight={500} fontSize={14} color={'text1'} {...props} />
+    return <TextWrapper fontWeight={500} fontSize={14} color={'#06fc99'} {...props} />
   },
 
   body(props) {
-    return <TextWrapper fontWeight={400} fontSize={14} color={'text1'} {...props} />
+    return <TextWrapper fontWeight={400} fontSize={14} color={'#06fc99'} {...props} />
   },
 
   small(props) {
-    return <TextWrapper fontWeight={500} fontSize={11} color={'text1'} {...props} />
+    return <TextWrapper fontWeight={500} fontSize={11} color={'#06fc99'} {...props} />
   },
 
   header(props) {
-    return <TextWrapper fontWeight={600} color={'text1'} {...props} />
+    return <TextWrapper fontWeight={600} color={'#06fc99'} {...props} />
   },
 
   largeHeader(props) {
-    return <TextWrapper fontWeight={500} color={'text1'} fontSize={24} {...props} />
+    return <TextWrapper fontWeight={500} color={'#06fc99'} fontSize={24} {...props} />
   },
 
   light(props) {
-    return <TextWrapper fontWeight={400} color={'text3'} fontSize={14} {...props} />
+    return <TextWrapper fontWeight={400} color={'#06fc99'} fontSize={14} {...props} />
   },
 
   pink(props) {
-    return <TextWrapper fontWeight={props.faded ? 400 : 600} color={props.faded ? 'text1' : 'text1'} {...props} />
+    return <TextWrapper fontWeight={props.faded ? 400 : 600} color={props.faded ? '#06fc99' : '#06fc99'} {...props} />
   },
 }
 
