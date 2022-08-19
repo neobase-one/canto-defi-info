@@ -10,7 +10,8 @@ import { RowFixed, RowBetween } from '../Row'
 
 import LocalLoader from '../LocalLoader'
 import { Box, Flex, Text } from 'rebass'
-import Link from '../Link'
+import { CustomLink } from '../Link'
+
 import { Divider, EmptyCard } from '..'
 import DropdownSelect from '../DropdownSelect'
 import FormattedName from '../FormattedName'
@@ -345,9 +346,9 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
     return (
       <tr>
         <td area="txn" fontWeight="500">
-          <Link color="#06fc99" external href={urls.showTransaction(item.hash)}>
+          <CustomLink color="#027733" external href={urls.showTransaction(item.hash)}>
             {getTransactionType(item.type, item.token1Symbol, item.token0Symbol)}
-          </Link>
+          </CustomLink>
         </td>
         <td area="value">
           {currency === 'CANTO' ? 'Ⓒ ' + formattedNum(item.valueCANTO) : formattedNum(item.amountUSD, true)}
@@ -365,9 +366,9 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         )}
         {!below1080 && (
           <td area="account">
-            <Link color="#06fc99" external href={'https://evm.explorer.canto.io/address/' + item.account}>
+            <CustomLink color="#027733" external href={'https://evm.explorer.canto.io/address/' + item.account}>
               {item.account && item.account.slice(0, 6) + '...' + item.account.slice(38, 42)}
-            </Link>
+            </CustomLink>
           </td>
         )}
         <td area="time">{formatTime(item.timestamp)}</td>
