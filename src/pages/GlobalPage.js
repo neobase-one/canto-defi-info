@@ -26,16 +26,16 @@ import bgNoise from '../assets/bg-noise.gif'
 import { PageWrapper, ContentWrapper } from '../components'
 import CheckBox from '../components/Checkbox'
 import QuestionHelper from '../components/QuestionHelper'
-import Drawer from '@material-ui/core/Drawer';
-import MenuIcon from '@material-ui/icons/Menu';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import Drawer from '@material-ui/core/Drawer'
+import MenuIcon from '@material-ui/icons/Menu'
+import List from '@material-ui/core/List'
+import Divider from '@material-ui/core/Divider'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
 import { Icon, IconButton } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 import { useSessionStart } from '../contexts/Application'
-import Logo from "../assets/logo.svg"
+import Logo from '../assets/logo.svg'
 
 const StaticOverlay = styled.div`
   -webkit-font-smoothing: antialiased;
@@ -84,15 +84,15 @@ const GridRow = styled.div`
 
 const useStyles = makeStyles({
   list: {
-    width: 250
+    width: 250,
   },
   fullList: {
-    width: "auto"
+    width: 'auto',
   },
   paper: {
-    background: "black",
-  }
-});
+    background: 'black',
+  },
+})
 
 const Polling = styled.div`
   position: fixed;
@@ -142,23 +142,23 @@ function GlobalPage() {
 
   const [state, setState] = React.useState({
     left: false,
-  });
+  })
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
+      return
     }
 
-    setState({ ...state, [anchor]: open });
-  };
+    setState({ ...state, [anchor]: open })
+  }
 
   const seconds = useSessionStart()
   const history = useHistory()
 
   const sideBarText = {
-    color: "#06fc99",
-    fontFamily: "IBM Plex Mono, monospace",
-  };
+    color: '#06fc99',
+    fontFamily: 'IBM Plex Mono, monospace',
+  }
 
   const list = (anchor) => (
     <Box
@@ -168,14 +168,14 @@ function GlobalPage() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItem key={"stableswap"} disablePadding>
-          <ListItem button key={"stableswap"} onClick={() => history.push('/stableswap')}>
-            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={"> stable swap"} />
+        <ListItem key={'stableswap'} disablePadding>
+          <ListItem button key={'stableswap'} onClick={() => history.push('/stableswap')}>
+            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={'> stable swap'} />
           </ListItem>
         </ListItem>
-        <ListItem key={"lendingmarket"} disablePadding>
-          <ListItem button key={"lendingmarket"} onClick={() => history.push('/lendingmarket')}>
-            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={"> Lending Market"} color="green" />
+        <ListItem key={'lendingmarket'} disablePadding>
+          <ListItem button key={'lendingmarket'} onClick={() => history.push('/lendingmarket')}>
+            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={'> Lending Market'} color="green" />
           </ListItem>
         </ListItem>
       </List>
@@ -189,9 +189,9 @@ function GlobalPage() {
         </a>
       </Polling>
     </Box>
-  );
+  )
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <PageWrapper>
@@ -201,7 +201,7 @@ function GlobalPage() {
         <div>
           {['left'].map((anchor) => (
             <React.Fragment key={anchor}>
-              <div style={{ display: "flex" }}>
+              <div style={{ display: 'flex' }}>
                 <IconButton onClick={toggleDrawer(anchor, true)}>
                   <MenuIcon style={{ color: '#06fc99' }} />
                 </IconButton>
@@ -214,7 +214,7 @@ function GlobalPage() {
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
               >
-                <div style={{ display: "flex", justifyContent: "center", paddingTop: "10%" }}>
+                <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '10%' }}>
                   <img src={Logo} width="15%" />
                   <AutoColumn gap="14px" />
                 </div>
@@ -307,9 +307,9 @@ function GlobalPage() {
                   text={'hide untracked pairs'}
                 />
                 <QuestionHelper text="USD amounts may be inaccurate in low liquiidty pairs or pairs without CANTO or stablecoins." />
-                <CustomLink to={'/lendingmarket'} color="#06fc99">
+                {/* <CustomLink to={'/lendingmarket'} color="#06fc99">
                   see all
-                </CustomLink>
+                </CustomLink> */}
               </AutoRow>
             </RowBetween>
           </ListOptions>
