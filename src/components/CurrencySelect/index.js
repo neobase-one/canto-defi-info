@@ -46,7 +46,7 @@ const CurrencySelect = () => {
 
   const getOther = () => {
     if (currency === 'USD') {
-      return 'CANTO'
+      return 'NOTE'
     } else {
       return 'USD'
     }

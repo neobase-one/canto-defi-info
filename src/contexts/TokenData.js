@@ -305,17 +305,17 @@ const getTopTokens = async (cantoPrice, cantoPriceOld) => {
           twoDayHistory?.txCount ?? 0
         )
 
-        const currentLiquidityUSD = data?.totalLiquidity * cantoPrice * data?.derivedCANTO
-        const oldLiquidityUSD = oneDayHistory?.totalLiquidity * cantoPriceOld * oneDayHistory?.derivedCANTO
+        const currentLiquidityUSD = data?.totalLiquidity * cantoPrice * data?.derivedNOTE
+        const oldLiquidityUSD = oneDayHistory?.totalLiquidity * cantoPriceOld * oneDayHistory?.derivedNOTE
 
         // percent changes
         const priceChangeUSD = getPercentChange(
-          data?.derivedCANTO * cantoPrice,
-          oneDayHistory?.derivedCANTO ? oneDayHistory?.derivedCANTO * cantoPriceOld : 0
+          data?.derivedNOTE * cantoPrice,
+          oneDayHistory?.derivedNOTE ? oneDayHistory?.derivedNOTE * cantoPriceOld : 0
         )
 
         // set data
-        data.priceUSD = data?.derivedCANTO * cantoPrice
+        data.priceUSD = data?.derivedNOTE * cantoPrice
         data.totalLiquidityUSD = currentLiquidityUSD
         data.oneDayVolumeUSD = parseFloat(oneDayVolumeUSD)
         data.volumeChangeUSD = volumeChangeUSD
@@ -327,7 +327,7 @@ const getTopTokens = async (cantoPrice, cantoPriceOld) => {
         // new tokens
         if (!oneDayHistory && data) {
           data.oneDayVolumeUSD = data.tradeVolumeUSD
-          data.oneDayVolumeCANTO = data.tradeVolume * data.derivedCANTO
+          data.oneDayVolumeNOTE = data.tradeVolume * data.derivedNOTE
           data.oneDayTxns = data.txCount
         }
 
@@ -436,15 +436,15 @@ const getTokenData = async (address, cantoPrice, cantoPriceOld) => {
     )
 
     const priceChangeUSD = getPercentChange(
-      data?.derivedCANTO * cantoPrice,
-      parseFloat(oneDayData?.derivedCANTO ?? 0) * cantoPriceOld
+      data?.derivedNOTE * cantoPrice,
+      parseFloat(oneDayData?.derivedNOTE ?? 0) * cantoPriceOld
     )
 
-    const currentLiquidityUSD = data?.totalLiquidity * cantoPrice * data?.derivedCANTO
-    const oldLiquidityUSD = oneDayData?.totalLiquidity * cantoPriceOld * oneDayData?.derivedCANTO
+    const currentLiquidityUSD = data?.totalLiquidity * cantoPrice * data?.derivedNOTE
+    const oldLiquidityUSD = oneDayData?.totalLiquidity * cantoPriceOld * oneDayData?.derivedNOTE
 
     // set data
-    data.priceUSD = data?.derivedCANTO * cantoPrice
+    data.priceUSD = data?.derivedNOTE * cantoPrice
     data.totalLiquidityUSD = currentLiquidityUSD
     data.oneDayVolumeUSD = oneDayVolumeUSD
     data.volumeChangeUSD = volumeChangeUSD
@@ -463,7 +463,7 @@ const getTokenData = async (address, cantoPrice, cantoPriceOld) => {
     // new tokens
     if (!oneDayData && data) {
       data.oneDayVolumeUSD = data.tradeVolumeUSD
-      data.oneDayVolumeCANTO = data.tradeVolume * data.derivedCANTO
+      data.oneDayVolumeNOTE = data.tradeVolume * data.derivedNOTE
       data.oneDayTxns = data.txCount
     }
 
@@ -556,15 +556,15 @@ const getIntervalTokenData = async (tokenAddress, startTime, interval = 3600, la
 
     let result = await splitQuery(PRICES_BY_BLOCK, client, [tokenAddress], blocks, 50)
 
-    // format token CANTO price results
+    // format token NOTE price results
     let values = []
     for (var row in result) {
       let timestamp = row.split('t')[1]
-      let derivedCANTO = parseFloat(result[row]?.derivedCANTO)
+      let derivedNOTE = parseFloat(result[row]?.derivedNOTE)
       if (timestamp) {
         values.push({
           timestamp,
-          derivedCANTO,
+          derivedNOTE,
         })
       }
     }
@@ -574,7 +574,7 @@ const getIntervalTokenData = async (tokenAddress, startTime, interval = 3600, la
     for (var brow in result) {
       let timestamp = brow.split('b')[1]
       if (timestamp) {
-        values[index].priceUSD = result[brow].cantoPrice * values[index].derivedCANTO
+        values[index].priceUSD = result[brow].cantoPrice * values[index].derivedNOTE
         index += 1
       }
     }

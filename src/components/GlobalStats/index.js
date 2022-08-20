@@ -47,8 +47,7 @@ export default function GlobalStats() {
               }}
               style={{ position: 'relative' }}
             >
-              CANTO price: <Medium>{formattedEthPrice}</Medium>
-              {showPriceCard && <UniPrice />}
+              NOTE price: <Medium>{formattedEthPrice}</Medium>
             </TYPE.main>
           )}
 

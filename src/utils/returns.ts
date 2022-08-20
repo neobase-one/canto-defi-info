@@ -161,9 +161,9 @@ export function getMetricsForPositionWindow(positionT0: Position, positionT1: Po
  * @param startDateTimestamp // day to start tracking at
  * @param currentPairData // current stat of the pair
  * @param pairSnapshots // history of entries and exits for lp on this pair
- * @param currentCANTOPrice // current price of eth used for usd conversions
+ * @param currentNOTEPrice // current price of eth used for usd conversions
  */
-export async function getHistoricalPairReturns(startDateTimestamp, currentPairData, pairSnapshots, currentCANTOPrice) {
+export async function getHistoricalPairReturns(startDateTimestamp, currentPairData, pairSnapshots, currentNOTEPrice) {
   // catch case where data not puplated yet
   if (!currentPairData.createdAtTimestamp) {
     return []
@@ -224,8 +224,8 @@ export async function getHistoricalPairReturns(startDateTimestamp, currentPairDa
         reserve0: currentPairData.reserve0,
         reserve1: currentPairData.reserve1,
         reserveUSD: currentPairData.reserveUSD,
-        token0PriceUSD: currentPairData.token0.derivedCANTO * currentCANTOPrice,
-        token1PriceUSD: currentPairData.token1.derivedCANTO * currentCANTOPrice,
+        token0PriceUSD: currentPairData.token0.derivedNOTE * currentNOTEPrice,
+        token1PriceUSD: currentPairData.token1.derivedNOTE * currentNOTEPrice,
       }
     }
 
@@ -275,8 +275,8 @@ export async function getLPReturnsOnPair(user: string, pair, cantoPrice: number,
     reserve0: pair.reserve0,
     reserve1: pair.reserve1,
     reserveUSD: pair.reserveUSD,
-    token0PriceUSD: pair.token0.derivedCANTO * cantoPrice,
-    token1PriceUSD: pair.token1.derivedCANTO * cantoPrice,
+    token0PriceUSD: pair.token0.derivedNOTE * cantoPrice,
+    token1PriceUSD: pair.token1.derivedNOTE * cantoPrice,
   }
 
   for (const index in snapshots) {
