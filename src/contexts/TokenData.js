@@ -220,7 +220,7 @@ export default function Provider({ children }) {
   )
 }
 
-const getTopTokens = async (cantoPrice, cantoPriceOld) => {
+const getTopTokens = async (notePrice, cantoPriceOld) => {
   const utcCurrentTime = dayjs()
   const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix()
   const utcTwoDaysBack = utcCurrentTime.subtract(2, 'day').unix()
@@ -305,17 +305,17 @@ const getTopTokens = async (cantoPrice, cantoPriceOld) => {
           twoDayHistory?.txCount ?? 0
         )
 
-        const currentLiquidityUSD = data?.totalLiquidity * cantoPrice * data?.derivedNOTE
+        const currentLiquidityUSD = data?.totalLiquidity * notePrice * data?.derivedNOTE
         const oldLiquidityUSD = oneDayHistory?.totalLiquidity * cantoPriceOld * oneDayHistory?.derivedNOTE
 
         // percent changes
         const priceChangeUSD = getPercentChange(
-          data?.derivedNOTE * cantoPrice,
+          data?.derivedNOTE * notePrice,
           oneDayHistory?.derivedNOTE ? oneDayHistory?.derivedNOTE * cantoPriceOld : 0
         )
 
         // set data
-        data.priceUSD = data?.derivedNOTE * cantoPrice
+        data.priceUSD = data?.derivedNOTE * notePrice
         data.totalLiquidityUSD = currentLiquidityUSD
         data.oneDayVolumeUSD = parseFloat(oneDayVolumeUSD)
         data.volumeChangeUSD = volumeChangeUSD
@@ -364,7 +364,7 @@ const getTopTokens = async (cantoPrice, cantoPriceOld) => {
   }
 }
 
-const getTokenData = async (address, cantoPrice, cantoPriceOld) => {
+const getTokenData = async (address, notePrice, cantoPriceOld) => {
   const utcCurrentTime = dayjs()
   const utcOneDayBack = utcCurrentTime.subtract(1, 'day').startOf('minute').unix()
   const utcTwoDaysBack = utcCurrentTime.subtract(2, 'day').startOf('minute').unix()
@@ -436,15 +436,15 @@ const getTokenData = async (address, cantoPrice, cantoPriceOld) => {
     )
 
     const priceChangeUSD = getPercentChange(
-      data?.derivedNOTE * cantoPrice,
+      data?.derivedNOTE * notePrice,
       parseFloat(oneDayData?.derivedNOTE ?? 0) * cantoPriceOld
     )
 
-    const currentLiquidityUSD = data?.totalLiquidity * cantoPrice * data?.derivedNOTE
+    const currentLiquidityUSD = data?.totalLiquidity * notePrice * data?.derivedNOTE
     const oldLiquidityUSD = oneDayData?.totalLiquidity * cantoPriceOld * oneDayData?.derivedNOTE
 
     // set data
-    data.priceUSD = data?.derivedNOTE * cantoPrice
+    data.priceUSD = data?.derivedNOTE * notePrice
     data.totalLiquidityUSD = currentLiquidityUSD
     data.oneDayVolumeUSD = oneDayVolumeUSD
     data.volumeChangeUSD = volumeChangeUSD
@@ -574,7 +574,7 @@ const getIntervalTokenData = async (tokenAddress, startTime, interval = 3600, la
     for (var brow in result) {
       let timestamp = brow.split('b')[1]
       if (timestamp) {
-        values[index].priceUSD = result[brow].cantoPrice * values[index].derivedNOTE
+        values[index].priceUSD = result[brow].notePrice * values[index].derivedNOTE
         index += 1
       }
     }
@@ -667,30 +667,30 @@ const getTokenChartData = async (tokenAddress) => {
 
 export function Updater() {
   const [, { updateTopTokens }] = useTokenDataContext()
-  const [cantoPrice, cantoPriceOld] = useEthPrice()
+  const [notePrice, cantoPriceOld] = useEthPrice()
   useEffect(() => {
     async function getData() {
       // get top pairs for overview list
-      let topTokens = await getTopTokens(cantoPrice, cantoPriceOld)
+      let topTokens = await getTopTokens(notePrice, cantoPriceOld)
       topTokens && updateTopTokens(topTokens)
     }
-    cantoPrice && cantoPriceOld && getData()
-  }, [cantoPrice, cantoPriceOld, updateTopTokens])
+    notePrice && cantoPriceOld && getData()
+  }, [notePrice, cantoPriceOld, updateTopTokens])
   return null
 }
 
 export function useTokenData(tokenAddress) {
   const [state, { update }] = useTokenDataContext()
-  const [cantoPrice, cantoPriceOld] = useEthPrice()
+  const [notePrice, cantoPriceOld] = useEthPrice()
   const tokenData = state?.[tokenAddress]
 
   useEffect(() => {
-    if (!tokenData && cantoPrice && cantoPriceOld && isAddress(tokenAddress)) {
-      getTokenData(tokenAddress, cantoPrice, cantoPriceOld).then((data) => {
+    if (!tokenData && notePrice && cantoPriceOld && isAddress(tokenAddress)) {
+      getTokenData(tokenAddress, notePrice, cantoPriceOld).then((data) => {
         update(tokenAddress, data)
       })
     }
-  }, [cantoPrice, cantoPriceOld, tokenAddress, tokenData, update])
+  }, [notePrice, cantoPriceOld, tokenAddress, tokenData, update])
 
   return tokenData || {}
 }
@@ -738,7 +738,7 @@ export function useTokenPairs(tokenAddress) {
 
 export function useTokenDataCombined(tokenAddresses) {
   const [state, { updateCombinedVolume }] = useTokenDataContext()
-  const [cantoPrice, cantoPriceOld] = useEthPrice()
+  const [notePrice, cantoPriceOld] = useEthPrice()
 
   const volume = state?.combinedVol
 
@@ -746,7 +746,7 @@ export function useTokenDataCombined(tokenAddresses) {
     async function fetchDatas() {
       Promise.all(
         tokenAddresses.map(async (address) => {
-          return await getTokenData(address, cantoPrice, cantoPriceOld)
+          return await getTokenData(address, notePrice, cantoPriceOld)
         })
       )
         .then((res) => {
@@ -764,10 +764,10 @@ export function useTokenDataCombined(tokenAddresses) {
           console.log('error fetching combined data')
         })
     }
-    if (!volume && cantoPrice && cantoPriceOld) {
+    if (!volume && notePrice && cantoPriceOld) {
       fetchDatas()
     }
-  }, [tokenAddresses, cantoPrice, cantoPriceOld, volume, updateCombinedVolume])
+  }, [tokenAddresses, notePrice, cantoPriceOld, volume, updateCombinedVolume])
 
   return volume
 }

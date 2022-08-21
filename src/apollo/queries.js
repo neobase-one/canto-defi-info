@@ -96,7 +96,7 @@ export const PRICES_BY_BLOCK = (tokenAddress, blocks) => {
   queryString += blocks.map(
     (block) => `
       b${block.timestamp}: bundle(id:"1", block: { number: ${block.number} }) { 
-        cantoPrice
+        notePrice
       }
     `
   )
@@ -156,7 +156,7 @@ export const SHARE_VALUE = (pairAddress, blocks) => {
   queryString += blocks.map(
     (block) => `
       b${block.timestamp}: bundle(id:"1", block: { number: ${block.number} }) { 
-        cantoPrice
+        notePrice
       }
     `
   )
@@ -171,14 +171,14 @@ export const NOTE_PRICE = (block) => {
     query getBundles {
       getBundles(input: { id: ${BUNDLE_ID} } block: {number: ${block}}) {
         id
-        cantoPrice
+        notePrice
       }
     }
   `
     : ` query getBundles {
       getBundles(input: { id: ${BUNDLE_ID} }) {
         id
-        cantoPrice
+        notePrice
       }
     }
   `

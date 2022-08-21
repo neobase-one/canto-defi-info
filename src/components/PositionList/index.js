@@ -135,7 +135,7 @@ function PositionList({ positions }) {
     }
   }, [positions])
 
-  const [cantoPrice] = useEthPrice()
+  const [notePrice] = useEthPrice()
 
   const ListItem = ({ position, index }) => {
     const poolOwnership = position.liquidityTokenBalance / position.pair.totalSupply
@@ -214,7 +214,7 @@ function PositionList({ positions }) {
                   <TYPE.small fontWeight={400}>
                     {parseFloat(position.pair.token0.derivedNOTE)
                       ? formattedNum(
-                        position?.fees.sum / (parseFloat(position.pair.token0.derivedNOTE) * cantoPrice) / 2,
+                        position?.fees.sum / (parseFloat(position.pair.token0.derivedNOTE) * notePrice) / 2,
                         false,
                         true
                       )
@@ -231,7 +231,7 @@ function PositionList({ positions }) {
                   <TYPE.small fontWeight={400}>
                     {parseFloat(position.pair.token1.derivedNOTE)
                       ? formattedNum(
-                        position?.fees.sum / (parseFloat(position.pair.token1.derivedNOTE) * cantoPrice) / 2,
+                        position?.fees.sum / (parseFloat(position.pair.token1.derivedNOTE) * notePrice) / 2,
                         false,
                         true
                       )
