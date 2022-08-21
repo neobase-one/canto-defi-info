@@ -448,7 +448,7 @@ export function useUserPositions(account) {
   const positions = state?.[account]?.[POSITIONS_KEY]
 
   const snapshots = useUserSnapshots(account)
-  const [cantoPrice] = useEthPrice()
+  const [notePrice] = useEthPrice()
 
   useEffect(() => {
     async function fetchData(account) {
@@ -463,7 +463,7 @@ export function useUserPositions(account) {
         if (result?.data?.liquidityPositions) {
           let formattedPositions = await Promise.all(
             result?.data?.liquidityPositions.map(async (positionData) => {
-              const returnData = await getLPReturnsOnPair(account, positionData.pair, cantoPrice, snapshots)
+              const returnData = await getLPReturnsOnPair(account, positionData.pair, notePrice, snapshots)
               return {
                 ...positionData,
                 ...returnData,
@@ -476,10 +476,10 @@ export function useUserPositions(account) {
         console.log(e)
       }
     }
-    if (!positions && account && cantoPrice && snapshots) {
+    if (!positions && account && notePrice && snapshots) {
       fetchData(account)
     }
-  }, [account, positions, updatePositions, cantoPrice, snapshots])
+  }, [account, positions, updatePositions, notePrice, snapshots])
 
   return positions
 }

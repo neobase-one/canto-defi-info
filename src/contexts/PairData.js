@@ -182,7 +182,7 @@ export default function Provider({ children }) {
   )
 }
 
-async function getBulkPairData(pairList, cantoPrice) {
+async function getBulkPairData(pairList, notePrice) {
   const [t1, t2, tWeek] = getTimestampsForChanges()
   var arr = await getBlocksFromTimestamps([t1, t2, tWeek]);
   let b1 = arr[0]?.number || 0;
@@ -249,7 +249,7 @@ async function getBulkPairData(pairList, cantoPrice) {
           })
           oneWeekHistory = newData?.data?.pairs?.[0]
         }
-        data = parseData(data, oneDayHistory, twoDayHistory, oneWeekHistory, cantoPrice, b1)
+        data = parseData(data, oneDayHistory, twoDayHistory, oneWeekHistory, notePrice, b1)
         return data
       })
     )
@@ -259,7 +259,7 @@ async function getBulkPairData(pairList, cantoPrice) {
   }
 }
 
-function parseData(data, oneDayData, twoDayData, oneWeekData, cantoPrice, oneDayBlock) {
+function parseData(data, oneDayData, twoDayData, oneWeekData, notePrice, oneDayBlock) {
   const pairAddress = data.id
 
   // get volume changes
@@ -289,7 +289,7 @@ function parseData(data, oneDayData, twoDayData, oneWeekData, cantoPrice, oneDay
   data.volumeChangeUntracked = volumeChangeUntracked
 
   // set liquidity properties
-  data.trackedReserveUSD = data.trackedReserveNOTE * cantoPrice
+  data.trackedReserveUSD = data.trackedReserveNOTE * notePrice
   data.liquidityChangeUSD = getPercentChange(data.reserveUSD, oneDayData?.reserveUSD)
 
   // format if pair hasnt existed for a day or a week
@@ -482,7 +482,7 @@ const getHourlyRateData = async (pairAddress, startTime, latestBlock) => {
 
 export function Updater() {
   const [, { updateTopPairs }] = usePairDataContext()
-  const [cantoPrice] = useEthPrice()
+  const [notePrice] = useEthPrice()
   useEffect(() => {
     async function getData() {
       // get top pairs by reserves
@@ -497,11 +497,11 @@ export function Updater() {
       })
 
       // get data for every pair in list
-      let topPairs = await getBulkPairData(formattedPairs, cantoPrice)
+      let topPairs = await getBulkPairData(formattedPairs, notePrice)
       topPairs && updateTopPairs(topPairs)
     }
-    cantoPrice && getData()
-  }, [cantoPrice, updateTopPairs])
+    notePrice && getData()
+  }, [notePrice, updateTopPairs])
   return null
 }
 
@@ -534,7 +534,7 @@ export function useHourlyRateData(pairAddress, timeWindow) {
  */
 export function useDataForList(pairList) {
   const [state] = usePairDataContext()
-  const [cantoPrice] = useEthPrice()
+  const [notePrice] = useEthPrice()
 
   const [stale, setStale] = useState(false)
   const [fetched, setFetched] = useState([])
@@ -565,15 +565,15 @@ export function useDataForList(pairList) {
         unfetched.map((pair) => {
           return pair
         }),
-        cantoPrice
+        notePrice
       )
       setFetched(newFetched.concat(newPairData))
     }
-    if (cantoPrice && pairList && pairList.length > 0 && !fetched && !stale) {
+    if (notePrice && pairList && pairList.length > 0 && !fetched && !stale) {
       setStale(true)
       fetchNewPairData()
     }
-  }, [cantoPrice, state, pairList, stale, fetched])
+  }, [notePrice, state, pairList, stale, fetched])
 
   let formattedFetch =
     fetched &&
@@ -589,20 +589,20 @@ export function useDataForList(pairList) {
  */
 export function usePairData(pairAddress) {
   const [state, { update }] = usePairDataContext()
-  const [cantoPrice] = useEthPrice()
+  const [notePrice] = useEthPrice()
   const pairData = state?.[pairAddress]
 
   useEffect(() => {
     async function fetchData() {
       if (!pairData && pairAddress) {
-        let data = await getBulkPairData([pairAddress], cantoPrice)
+        let data = await getBulkPairData([pairAddress], notePrice)
         data && update(pairAddress, data[0])
       }
     }
-    if (!pairData && pairAddress && cantoPrice && isAddress(pairAddress)) {
+    if (!pairData && pairAddress && notePrice && isAddress(pairAddress)) {
       fetchData()
     }
-  }, [pairAddress, pairData, update, cantoPrice])
+  }, [pairAddress, pairData, update, notePrice])
 
   return pairData || {}
 }

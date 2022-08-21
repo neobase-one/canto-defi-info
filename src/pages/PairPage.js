@@ -163,15 +163,15 @@ function PairPage({ pairAddress, history }) {
       : '-'
 
   // token data for usd
-  const [cantoPrice] = useEthPrice()
+  const [notePrice] = useEthPrice()
   const token0USD =
-    token0?.derivedNOTE && cantoPrice
-      ? formattedNum(parseFloat(token0.derivedNOTE) * parseFloat(cantoPrice), true)
+    token0?.derivedNOTE && notePrice
+      ? formattedNum(parseFloat(token0.derivedNOTE) * parseFloat(notePrice), true)
       : ''
 
   const token1USD =
-    token1?.derivedNOTE && cantoPrice
-      ? formattedNum(parseFloat(token1.derivedNOTE) * parseFloat(cantoPrice), true)
+    token1?.derivedNOTE && notePrice
+      ? formattedNum(parseFloat(token1.derivedNOTE) * parseFloat(notePrice), true)
       : ''
 
   // rates
