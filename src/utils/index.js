@@ -349,9 +349,8 @@ export const formattedNum = (number, usd = false, acceptNegatives = false) => {
     return usd ? 'Ꞥ0' : 0
   }
   let num = parseFloat(number)
-
-  if (num > 500000000) {
-    return (usd ? 'Ꞥ' : '') + toK(num.toFixed(0), true)
+  if (num > 500000000) { 
+    return (usd ? 'Ꞥ' : '') + toK(num.toFixed(0))
   }
 
   if (num === 0) {
@@ -365,7 +364,7 @@ export const formattedNum = (number, usd = false, acceptNegatives = false) => {
     return usd ? '< Ꞥ0.0001' : '< 0.0001'
   }
 
-  if (num > 1000) {
+  if (num > 1000 && num <= 500000000) {
     return usd ? formatDollarAmount(num, 0) : Number(parseFloat(num).toFixed(0)).toLocaleString()
   }
 

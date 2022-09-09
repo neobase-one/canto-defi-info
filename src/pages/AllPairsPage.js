@@ -107,8 +107,9 @@ function AllPairsPage() {
   var totalBorrow = 0
   if (markets) {
     for (var index = 0; index < markets.length; index++) {
-      totalBorrow += markets[index].totalBorrows
-      totalSupply += markets[index].totalSupply
+      totalBorrow += Number(markets[index].totalBorrows)
+      totalSupply += Number(markets[index].totalSupply)
+
     }
   }
 
@@ -158,7 +159,7 @@ function AllPairsPage() {
         </ListItem>
         <ListItem key={"lendingmarket"} disablePadding>
           <ListItem button key={"lendingmarket"} onClick={() => history.push('/lendingmarket')}>
-            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={"> Lending Market"} color="green" />
+            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={"> lending market"} color="green" />
           </ListItem>
         </ListItem>
       </List>
@@ -219,8 +220,8 @@ function AllPairsPage() {
                   </TYPE.main>
                 )}
                 {!below1024 && (
-                  <TYPE.main mr={'1rem'}>
-                    total borrow: <Medium>{formattedNum(totalBorrow, true)}</Medium>
+                  <TYPE.main mr={'1rem'}>                    
+                    total borrow: <Medium>{formattedNum(totalBorrow, true)}</Medium>                   
                   </TYPE.main>
                 )}
               </RowFixed>
