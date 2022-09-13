@@ -267,8 +267,11 @@ async function getGlobalData(notePrice, oldEthPrice) {
       query: GLOBAL_DATA(),
       fetchPolicy: 'cache-first',
     })
+    // console.log('result:::::::::', result)
     console.log(data)
     data = result?.data?.uniswapFactories?.[0]
+    
+    // console.log('----------------------------++++-------------',data)
 
     // fetch the historical data
     let oneDayResult = await client.query({
@@ -709,7 +712,9 @@ export function useGlobalMarkets() {
     }
     fetchData()
   }, [updateMarkets, markets])
+  console.log("------------------------------------------------------------------------------------------")
   console.log(markets)
+  console.log("------------------------------------------------------------------------------------------")
   return markets
 }
 

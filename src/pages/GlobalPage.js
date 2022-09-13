@@ -175,7 +175,7 @@ function GlobalPage() {
         </ListItem>
         <ListItem key={'lendingmarket'} disablePadding>
           <ListItem button key={'lendingmarket'} onClick={() => history.push('/lendingmarket')}>
-            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={'> Lending Market'} color="green" />
+            <ListItemText primaryTypographyProps={{ style: sideBarText }} primary={'> lending market'} color="green" />
           </ListItem>
         </ListItem>
       </List>
